@@ -45,6 +45,7 @@ namespace ApollosLibrary.IDP.IntegrationTests
                 opt.UseSqlServer(localConfig.GetSection("ConnectionString").Value);
             });
             _context = new ApollosLibraryIDPContext(optionsBuilder.Options);
+            _context.Database.EnsureCreated();
 
             services.AddTransient<IUserUnitOfWork>(p => {
                 return new UserUnitOfWork(p.GetRequiredService<ApollosLibraryIDPContext>());
@@ -76,6 +77,11 @@ namespace ApollosLibrary.IDP.IntegrationTests
         public void ResetCheckpoint()
         {
             _checkpoint.Reset(_configuration.ConnectionString).Wait();
+        }
+
+        ~TestFixture()
+        {
+            _context.Database.EnsureDeleted();
         }
     }
 }

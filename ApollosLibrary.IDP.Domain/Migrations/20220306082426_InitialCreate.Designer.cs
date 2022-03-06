@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApollosLibrary.IDP.Domain.Migrations
 {
     [DbContext(typeof(ApollosLibraryIDPContext))]
-    [Migration("20220306045318_InitialCreate")]
+    [Migration("20220306082426_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,6 +65,30 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                     b.HasKey("ApiResourceId");
 
                     b.ToTable("ApiResources");
+
+                    b.HasData(
+                        new
+                        {
+                            ApiResourceId = 1,
+                            Created = new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7422),
+                            Description = "Open ID",
+                            DisplayName = "Open ID",
+                            Enabled = true,
+                            Name = "openid",
+                            NonEditable = false,
+                            ShowInDiscoveryDocument = true
+                        },
+                        new
+                        {
+                            ApiResourceId = 2,
+                            Created = new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7429),
+                            Description = "Apollo's Library Website",
+                            DisplayName = "Apollo's Library Website",
+                            Enabled = true,
+                            Name = "apolloslibrarywebsite",
+                            NonEditable = false,
+                            ShowInDiscoveryDocument = true
+                        });
                 });
 
             modelBuilder.Entity("ApollosLibrary.IDP.Domain.Model.ApiResourceClaim", b =>
@@ -86,6 +110,20 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                     b.HasIndex("ApiResourceId");
 
                     b.ToTable("ApiResourceClaims");
+
+                    b.HasData(
+                        new
+                        {
+                            ApiResourceClaimId = 1,
+                            ApiResourceId = 1,
+                            Type = "role"
+                        },
+                        new
+                        {
+                            ApiResourceClaimId = 2,
+                            ApiResourceId = 1,
+                            Type = "username"
+                        });
                 });
 
             modelBuilder.Entity("ApollosLibrary.IDP.Domain.Model.ApiResourceProperty", b =>
@@ -198,6 +236,19 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                     b.HasKey("ApiScopeId");
 
                     b.ToTable("ApiScopes");
+
+                    b.HasData(
+                        new
+                        {
+                            ApiScopeId = 1,
+                            Description = "Provides access to the My Library Web API",
+                            DisplayName = "Apollo's Library API",
+                            Emphasize = false,
+                            Enabled = true,
+                            Name = "apolloslibraryapi",
+                            Required = true,
+                            ShowInDiscoveryDocument = true
+                        });
                 });
 
             modelBuilder.Entity("ApollosLibrary.IDP.Domain.Model.ApiScopeClaim", b =>
@@ -385,6 +436,43 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                     b.HasKey("ClientId");
 
                     b.ToTable("Clients");
+
+                    b.HasData(
+                        new
+                        {
+                            ClientId = 1,
+                            AbsoluteRefreshTokenLifetime = 6000,
+                            AccessTokenLifetime = 6000,
+                            AccessTokenType = 0,
+                            AllowAccessTokensViaBrowser = true,
+                            AllowOfflineAccess = true,
+                            AllowPlainTextPkce = false,
+                            AllowRememberConsent = false,
+                            AlwaysIncludeUserClaimsInIdToken = true,
+                            AlwaysSendClientClaims = true,
+                            AuthorizationCodeLifetime = 6000,
+                            BackChannelLogoutSessionRequired = true,
+                            ClientIdentifier = "apolloslibrarywebapp",
+                            ClientName = "Apollo's Library Web App",
+                            Created = new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7524),
+                            Description = "Apollo's Library Web App",
+                            DeviceCodeLifetime = 6000,
+                            EnableLocalLogin = true,
+                            Enabled = true,
+                            FrontChannelLogoutSessionRequired = true,
+                            IdentityTokenLifetime = 6000,
+                            IncludeJwtId = true,
+                            NonEditable = false,
+                            ProtocolType = "oidc",
+                            RefreshTokenExpiration = "Sliding",
+                            RefreshTokenUsage = "ReUse",
+                            RequireClientSecret = false,
+                            RequireConsent = false,
+                            RequirePkce = true,
+                            RequireRequestObject = false,
+                            SlidingRefreshTokenLifetime = 6000,
+                            UpdateAccessTokenClaimsOnRefresh = true
+                        });
                 });
 
             modelBuilder.Entity("ApollosLibrary.IDP.Domain.Model.ClientClaim", b =>
@@ -430,6 +518,32 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                     b.HasIndex("ClientId");
 
                     b.ToTable("ClientCorsOrigins");
+
+                    b.HasData(
+                        new
+                        {
+                            ClientCorsOriginId = 1,
+                            ClientId = 1,
+                            Origin = "password"
+                        },
+                        new
+                        {
+                            ClientCorsOriginId = 2,
+                            ClientId = 1,
+                            Origin = "client_credentials"
+                        },
+                        new
+                        {
+                            ClientCorsOriginId = 3,
+                            ClientId = 1,
+                            Origin = "implicit"
+                        },
+                        new
+                        {
+                            ClientCorsOriginId = 4,
+                            ClientId = 1,
+                            Origin = "refresh_token"
+                        });
                 });
 
             modelBuilder.Entity("ApollosLibrary.IDP.Domain.Model.ClientGrantType", b =>
@@ -559,6 +673,50 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                     b.HasIndex("ClientId");
 
                     b.ToTable("ClientScopes");
+
+                    b.HasData(
+                        new
+                        {
+                            ClientScopeId = 1,
+                            ClientId = 1,
+                            Scope = "openid"
+                        },
+                        new
+                        {
+                            ClientScopeId = 2,
+                            ClientId = 1,
+                            Scope = "profile"
+                        },
+                        new
+                        {
+                            ClientScopeId = 3,
+                            ClientId = 1,
+                            Scope = "apolloslibraryapi"
+                        },
+                        new
+                        {
+                            ClientScopeId = 4,
+                            ClientId = 1,
+                            Scope = "role"
+                        },
+                        new
+                        {
+                            ClientScopeId = 5,
+                            ClientId = 1,
+                            Scope = "username"
+                        },
+                        new
+                        {
+                            ClientScopeId = 6,
+                            ClientId = 1,
+                            Scope = "email"
+                        },
+                        new
+                        {
+                            ClientScopeId = 7,
+                            ClientId = 1,
+                            Scope = "offline_access"
+                        });
                 });
 
             modelBuilder.Entity("ApollosLibrary.IDP.Domain.Model.ClientSecret", b =>
@@ -592,6 +750,17 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                     b.HasIndex("ClientId");
 
                     b.ToTable("ClientSecrets");
+
+                    b.HasData(
+                        new
+                        {
+                            ClientSecretId = 1,
+                            ClientId = 1,
+                            Created = new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7578),
+                            Description = "apolloslibrarywebsite",
+                            Type = "SharedSecret",
+                            Value = "979eb386dc9a387d614b72902e44f5cb295636d71f829d2afccff401eb794bd6"
+                        });
                 });
 
             modelBuilder.Entity("ApollosLibrary.IDP.Domain.Model.DeviceCode", b =>
@@ -669,6 +838,86 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                     b.HasKey("IdentityResourceId");
 
                     b.ToTable("IdentityResources");
+
+                    b.HasData(
+                        new
+                        {
+                            IdentityResourceId = 1,
+                            Created = new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7597),
+                            Description = "openid",
+                            DisplayName = "Opend ID",
+                            Emphasize = false,
+                            Enabled = true,
+                            Name = "openid",
+                            NonEditable = false,
+                            Required = true,
+                            ShowInDiscoveryDocument = true
+                        },
+                        new
+                        {
+                            IdentityResourceId = 2,
+                            Created = new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7601),
+                            Description = "User claims",
+                            DisplayName = "User Claims",
+                            Emphasize = false,
+                            Enabled = true,
+                            Name = "claims",
+                            NonEditable = false,
+                            Required = true,
+                            ShowInDiscoveryDocument = true
+                        },
+                        new
+                        {
+                            IdentityResourceId = 3,
+                            Created = new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7604),
+                            Description = "User Profile",
+                            DisplayName = "User Profile",
+                            Emphasize = false,
+                            Enabled = true,
+                            Name = "profile",
+                            NonEditable = false,
+                            Required = true,
+                            ShowInDiscoveryDocument = true
+                        },
+                        new
+                        {
+                            IdentityResourceId = 4,
+                            Created = new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7606),
+                            Description = "Username",
+                            DisplayName = "Username",
+                            Emphasize = false,
+                            Enabled = true,
+                            Name = "username",
+                            NonEditable = false,
+                            Required = true,
+                            ShowInDiscoveryDocument = true
+                        },
+                        new
+                        {
+                            IdentityResourceId = 5,
+                            Created = new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7608),
+                            Description = "User Role",
+                            DisplayName = "User Role",
+                            Emphasize = false,
+                            Enabled = true,
+                            Name = "role",
+                            NonEditable = false,
+                            Required = true,
+                            ShowInDiscoveryDocument = true
+                        },
+                        new
+                        {
+                            IdentityResourceId = 6,
+                            Created = new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7611),
+                            Description = "User Email",
+                            DisplayName = "User Email",
+                            Emphasize = false,
+                            Enabled = true,
+                            Name = "email",
+                            NonEditable = false,
+                            Required = true,
+                            ShowInDiscoveryDocument = true
+                        });
                 });
 
             modelBuilder.Entity("ApollosLibrary.IDP.Domain.Model.IdentityResourceClaim", b =>
@@ -792,6 +1041,18 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = new Guid("4e497bc1-4601-4e4c-880d-90370cbfc29e"),
+                            CreatedBy = new Guid("4e497bc1-4601-4e4c-880d-90370cbfc29e"),
+                            CreatedDate = new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7233),
+                            IsActive = true,
+                            Password = "AQAAAAEAACcQAAAAECY64tCZ5CSbcXzOp4NE6XAr1TB9wQ1zgMv6Sa49QGTmEftnFXzPMsBH+NB1cu5brw==",
+                            Subject = "32d9e959-7704-420d-9952-0d1f82859f8b",
+                            Username = "radulfr"
+                        });
                 });
 
             modelBuilder.Entity("ApollosLibrary.IDP.Domain.Model.UserClaim", b =>
@@ -814,6 +1075,36 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserClaims");
+
+                    b.HasData(
+                        new
+                        {
+                            UserClaimId = new Guid("177cd937-6d7a-486c-92ef-c30e2d40da75"),
+                            Type = "role",
+                            UserId = new Guid("4e497bc1-4601-4e4c-880d-90370cbfc29e"),
+                            Value = "administrator"
+                        },
+                        new
+                        {
+                            UserClaimId = new Guid("9efa9548-55f0-4574-95e0-44986e72ced6"),
+                            Type = "role",
+                            UserId = new Guid("4e497bc1-4601-4e4c-880d-90370cbfc29e"),
+                            Value = "moderator"
+                        },
+                        new
+                        {
+                            UserClaimId = new Guid("2cf91594-0239-4954-94da-6b3c8be5d458"),
+                            Type = "role",
+                            UserId = new Guid("4e497bc1-4601-4e4c-880d-90370cbfc29e"),
+                            Value = "freeaccount"
+                        },
+                        new
+                        {
+                            UserClaimId = new Guid("db0e4896-5d60-4306-a51b-cb7397b04b7b"),
+                            Type = "emailaddress",
+                            UserId = new Guid("4e497bc1-4601-4e4c-880d-90370cbfc29e"),
+                            Value = "wados.russell70@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("ApollosLibrary.IDP.Domain.Model.ApiResourceClaim", b =>

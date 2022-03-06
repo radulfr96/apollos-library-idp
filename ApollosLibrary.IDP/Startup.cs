@@ -42,6 +42,7 @@ namespace ApollosLibrary.IDP
 
             services.AddDbContext<ApollosLibraryIDPContext>(options => options.UseSqlServer(Configuration.GetSection("ConnectionString").Value));
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+            services.AddScoped<DbContext, ApollosLibraryIDPContext>();
 
             services.AddScoped<IUserService>(provider =>
             {
@@ -72,11 +73,13 @@ namespace ApollosLibrary.IDP
                 .AddProfileService<ProfileService>();
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, DbContext dbContext)
         {
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+
+            dbContext.Database.Migrate();
 
             if (Environment.IsDevelopment())
             {

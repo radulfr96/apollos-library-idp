@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+# nullable disable
+
 namespace ApollosLibrary.IDP.IntegrationTests
 {
     public class TestHttpContext : HttpContext
