@@ -13,9 +13,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using ApollosLibrary.IDP.Interfaces;
-using ApollosLibrary.IDP.Model;
 using ApollosLibrary.IDP.User.Commands.UpdatePasswordCommand;
 using Xunit;
+using ApollosLibrary.IDP.Domain.Model;
 
 namespace ApollosLibrary.IDP.IntegrationTests
 {
@@ -23,7 +23,7 @@ namespace ApollosLibrary.IDP.IntegrationTests
     public class UpdatePasswordCommandTest : TestBase
     {
         private readonly IDateTimeService _dateTime;
-        private readonly ApollosLibraryContext _context;
+        private readonly ApollosLibraryIDPContext _context;
         private readonly IMediator _mediatr;
         private readonly IHttpContextAccessor _contextAccessor;
 
@@ -38,7 +38,7 @@ namespace ApollosLibrary.IDP.IntegrationTests
 
             var provider = services.BuildServiceProvider();
             _mediatr = provider.GetRequiredService<IMediator>();
-            _context = provider.GetRequiredService<ApollosLibraryContext>();
+            _context = provider.GetRequiredService<ApollosLibraryIDPContext>();
             _contextAccessor = provider.GetRequiredService<IHttpContextAccessor>();
         }
 
@@ -58,8 +58,8 @@ namespace ApollosLibrary.IDP.IntegrationTests
 
             var password = new Faker().Random.AlphaNumeric(50);
 
-            var hasher = new PasswordHasher<Model.User>();
-            var user = new Model.User()
+            var hasher = new PasswordHasher<Domain.Model.User>();
+            var user = new Domain.Model.User()
             {
                 CreatedBy = userID,
                 CreatedDate = DateTime.Parse("2021-01-02"),

@@ -1,8 +1,8 @@
-﻿using AutoMapper;
+﻿using ApollosLibrary.IDP.Domain.Model;
+using AutoMapper;
 using IdentityServer4.Models;
 using IdentityServer4.Stores;
 using Microsoft.EntityFrameworkCore;
-using ApollosLibrary.IDP.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +12,10 @@ namespace ApollosLibrary.IDP.Stores
 {
     public class PersistedGrantStore : IPersistedGrantStore
     {
-        private readonly ApollosLibraryContext _context;
+        private readonly ApollosLibraryIDPContext _context;
         private readonly IMapper _mapper;
 
-        public PersistedGrantStore(ApollosLibraryContext context, IMapper mapper)
+        public PersistedGrantStore(ApollosLibraryIDPContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -31,7 +31,7 @@ namespace ApollosLibrary.IDP.Stores
             ).ToListAsync();
 
 
-            return _mapper.Map<List<Model.PersistedGrant>, List<IdentityServer4.Models.PersistedGrant>>(grants);
+            return _mapper.Map<List<Domain.Model.PersistedGrant>, List<IdentityServer4.Models.PersistedGrant>>(grants);
         }
 
         public async Task<IdentityServer4.Models.PersistedGrant> GetAsync(string key)
@@ -64,7 +64,7 @@ namespace ApollosLibrary.IDP.Stores
 
         public async Task StoreAsync(IdentityServer4.Models.PersistedGrant grant)
         {
-            await _context.AddAsync(new Model.PersistedGrant()
+            await _context.AddAsync(new Domain.Model.PersistedGrant()
             {
                 ClientId = grant.ClientId,
                 ConsumedTime = grant.ConsumedTime,
@@ -72,7 +72,7 @@ namespace ApollosLibrary.IDP.Stores
                 Data = grant.Data,
                 Description = grant.Description,
                 Expiration = grant.Expiration,
-                Key = grant.Key,
+                PersistedGrantKey = grant.Key,
                 SessionId = grant.SessionId,
                 SubjectId = grant.SubjectId,
                 Type = grant.Type,

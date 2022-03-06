@@ -1,5 +1,4 @@
-﻿using ApollosLibrary.IDP.Model;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
@@ -14,13 +13,14 @@ using MediatR;
 using ApollosLibrary.IDP.User.Commands.DeleteUserCommand;
 using Respawn.Graph;
 using System.Reflection;
+using ApollosLibrary.IDP.Domain.Model;
 
 namespace ApollosLibrary.IDP.UnitTests
 {
     public class TestFixture
     {
         public IServiceCollection ServiceCollection { get; private set; }
-        private readonly ApollosLibraryContext _context;
+        private readonly ApollosLibraryIDPContext _context;
         private readonly Configuration _configuration;
         private readonly Checkpoint _checkpoint;
 
@@ -36,18 +36,18 @@ namespace ApollosLibrary.IDP.UnitTests
 
             _configuration = new Configuration();
 
-            var optionsBuilder = new DbContextOptionsBuilder<ApollosLibraryContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<ApollosLibraryIDPContext>();
             optionsBuilder.UseSqlServer(localConfig.GetSection("ConnectionString").Value);
 
             services.AddHttpContextAccessor();
-            services.AddDbContext<ApollosLibraryContext>(opt =>
+            services.AddDbContext<ApollosLibraryIDPContext>(opt =>
             {
                 opt.UseSqlServer(localConfig.GetSection("ConnectionString").Value);
             });
-            _context = new ApollosLibraryContext(optionsBuilder.Options);
+            _context = new ApollosLibraryIDPContext(optionsBuilder.Options);
 
             services.AddTransient<IUserUnitOfWork>(p => {
-                return new UserUnitOfWork(p.GetRequiredService<ApollosLibraryContext>());
+                return new UserUnitOfWork(p.GetRequiredService<ApollosLibraryIDPContext>());
             });
 
             localConfig.Bind(_configuration);

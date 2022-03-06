@@ -92,8 +92,8 @@ namespace ApollosLibrary.IDP.UnitTests
                 return mockUserService.Object;
             });
 
-            var hasher = new PasswordHasher<Model.User>();
-            var user = new Model.User()
+            var hasher = new PasswordHasher<Domain.Model.User>();
+            var user = new Domain.Model.User()
             {
                 CreatedBy = Guid.NewGuid(),
                 CreatedDate = DateTime.Parse("2021-01-02"),

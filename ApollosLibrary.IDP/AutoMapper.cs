@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using ApollosLibrary.IDP.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ApollosLibrary.IDP.Domain.Model;
 
 namespace ApollosLibrary.IDP
 {

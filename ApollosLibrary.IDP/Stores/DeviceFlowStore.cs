@@ -1,8 +1,8 @@
-﻿using AutoMapper;
+﻿using ApollosLibrary.IDP.Domain.Model;
+using AutoMapper;
 using IdentityServer4.Models;
 using IdentityServer4.Stores;
 using Microsoft.EntityFrameworkCore;
-using ApollosLibrary.IDP.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,10 +14,10 @@ namespace ApollosLibrary.IDP.Stores
 {
     public class DeviceFlowStore : IDeviceFlowStore
     {
-        private readonly ApollosLibraryContext _context;
+        private readonly ApollosLibraryIDPContext _context;
         private readonly IMapper _mapper;
 
-        public DeviceFlowStore(ApollosLibraryContext context, IMapper mapper)
+        public DeviceFlowStore(ApollosLibraryIDPContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -25,16 +25,16 @@ namespace ApollosLibrary.IDP.Stores
 
         public async Task<IdentityServer4.Models.DeviceCode> FindByDeviceCodeAsync(string deviceCode)
         {
-            var code = await _context.DeviceCodes.FirstOrDefaultAsync(d => d.DeviceCode1 == deviceCode);
+            var code = await _context.DeviceCodes.FirstOrDefaultAsync(d => d.DeviceCodeId == deviceCode);
 
-            return _mapper.Map<Model.DeviceCode, IdentityServer4.Models.DeviceCode>(code);
+            return _mapper.Map<Domain.Model.DeviceCode, IdentityServer4.Models.DeviceCode>(code);
         }
 
         public async Task<IdentityServer4.Models.DeviceCode> FindByUserCodeAsync(string userCode)
         {
             var code = await _context.DeviceCodes.FirstOrDefaultAsync(d => d.UserCode == userCode);
 
-            return _mapper.Map<Model.DeviceCode, IdentityServer4.Models.DeviceCode>(code);
+            return _mapper.Map<Domain.Model.DeviceCode, IdentityServer4.Models.DeviceCode>(code);
         }
 
         public async Task RemoveByDeviceCodeAsync(string deviceCode)
@@ -51,13 +51,13 @@ namespace ApollosLibrary.IDP.Stores
         public async Task StoreDeviceAuthorizationAsync(string deviceCode, string userCode, IdentityServer4.Models.DeviceCode data)
         {
 
-            var entity = new Model.DeviceCode()
+            var entity = new Domain.Model.DeviceCode()
             {
                 ClientId = data.ClientId,
                 CreationTime = data.CreationTime,
                 Data = JsonConvert.SerializeObject(data),
                 Description = data.Description,
-                DeviceCode1 = deviceCode,
+                DeviceCodeId = deviceCode,
                 Expiration = data.CreationTime.AddYears(1),
                 SessionId = data.SessionId,
                 UserCode = userCode,

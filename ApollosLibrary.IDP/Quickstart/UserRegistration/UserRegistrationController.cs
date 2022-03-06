@@ -1,7 +1,7 @@
 ﻿using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using ApollosLibrary.IDP.Model;
+
 using ApollosLibrary.IDP.Services;
 using System;
 using System.Collections.Generic;
@@ -44,7 +44,7 @@ namespace ApollosLibrary.IDP.UserRegistration
 
             var userId = Guid.NewGuid();
 
-            var user = new Model.User()
+            var user = new Domain.Model.User()
             {
                 CreatedBy = userId,
                 CreatedDate = DateTime.Now,
@@ -52,11 +52,11 @@ namespace ApollosLibrary.IDP.UserRegistration
                 Subject = Guid.NewGuid().ToString(),
                 UserId = userId,
                 Username = model.Email,
-                UserClaims = new List<UserClaim>()
+                UserClaims = new List<Domain.Model.UserClaim>()
                 {
-                    new UserClaim()
+                    new Domain.Model.UserClaim()
                     {
-                        Id = Guid.NewGuid(),
+                        UserClaimId = Guid.NewGuid(),
                         Type = "sub",
                         Value = "UnpaidAccount",
                     },

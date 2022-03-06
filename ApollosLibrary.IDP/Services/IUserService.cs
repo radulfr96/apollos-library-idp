@@ -1,5 +1,4 @@
-﻿using ApollosLibrary.IDP.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,13 +8,13 @@ namespace ApollosLibrary.IDP.Services
 {
     public interface IUserService
     {
-        Task<Model.User> GetUserByUsername(string username);
+        Task<Domain.Model.User> GetUserByUsername(string username);
 
-        Task<Model.User> GetUserByEmail(string username);
+        Task<Domain.Model.User> GetUserByEmail(string username);
 
         Task<bool> ValidateCredentials(string username, string password);
 
-        Task<List<UserClaim>> GetUserClaimsBySubject(string subject);
+        Task<List<Domain.Model.UserClaim>> GetUserClaimsBySubject(string subject);
 
         Guid GetUserId();
 
@@ -23,7 +22,7 @@ namespace ApollosLibrary.IDP.Services
 
         Task<bool> ActivateUser(string securityCode);
 
-        Task AddUser(Model.User user, string password);
+        Task AddUser(Domain.Model.User user, string password);
 
         Task<string> InitiatePasswordResetRequest(string email);
 

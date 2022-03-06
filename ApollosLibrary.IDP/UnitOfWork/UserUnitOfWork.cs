@@ -1,19 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
 using ApollosLibrary.IDP.DataLayer;
-using ApollosLibrary.IDP.Model;
 using System;
 using System.Threading.Tasks;
+using ApollosLibrary.IDP.Domain.Model;
 
 namespace ApollosLibrary.IDP.UnitOfWork
 {
     public class UserUnitOfWork : IUserUnitOfWork, IDisposable
     {
-        private ApollosLibraryContext _dbContext;
+        private ApollosLibraryIDPContext _dbContext;
         private IDbContextTransaction _transaction;
         private IUserDataLayer _userDataLayer;
         private bool disposed = false;
 
-        public UserUnitOfWork(ApollosLibraryContext dbContext)
+        public UserUnitOfWork(ApollosLibraryIDPContext dbContext)
         {
             _dbContext = dbContext;
         }

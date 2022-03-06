@@ -24,7 +24,7 @@ namespace ApollosLibrary.IDP.User.Commands.UpdatePasswordCommand
 
         public IUserUnitOfWork _userUnitOfWork;
         public IUserService _userService;
-        public IPasswordHasher<Model.User> _passwordHasher;
+        public IPasswordHasher<Domain.Model.User> _passwordHasher;
         public IDateTimeService _dateTimeService;
 
         public UpdatePasswordCommandHandler(
@@ -36,7 +36,7 @@ namespace ApollosLibrary.IDP.User.Commands.UpdatePasswordCommand
             _userUnitOfWork = userUnitOfWork;
             _userService = userService;
             _dateTimeService = dateTimeService;
-            _passwordHasher = new PasswordHasher<Model.User>();
+            _passwordHasher = new PasswordHasher<Domain.Model.User>();
         }
 
         public async Task<UpdatePasswordCommandDto> Handle(UpdatePasswordCommand command, CancellationToken cancellationToken)

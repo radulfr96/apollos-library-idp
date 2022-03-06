@@ -10,13 +10,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ApollosLibrary.IDP.Model;
+
 using ApollosLibrary.IDP.Services;
 using ApollosLibrary.IDP.Stores;
 using ApollosLibrary.IDP.UnitOfWork;
 using System.Reflection;
 using MediatR;
 using ApollosLibrary.IDP.User.Queries.GetUserQuery;
+using ApollosLibrary.IDP.Domain.Model;
 
 namespace ApollosLibrary.IDP
 {
@@ -39,12 +40,12 @@ namespace ApollosLibrary.IDP
 
             services.AddMediatR(typeof(GetUserQuery).GetTypeInfo().Assembly);
 
-            services.AddDbContext<ApollosLibraryContext>(options => options.UseSqlServer(Configuration.GetSection("ConnectionString").Value));
+            services.AddDbContext<ApollosLibraryIDPContext>(options => options.UseSqlServer(Configuration.GetSection("ConnectionString").Value));
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
             services.AddScoped<IUserService>(provider =>
             {
-                return new UserService(new UserUnitOfWork(provider.GetRequiredService<ApollosLibraryContext>()), new PasswordHasher<Model.User>());
+                return new UserService(new UserUnitOfWork(provider.GetRequiredService<ApollosLibraryIDPContext>()), new PasswordHasher<Domain.Model.User>());
             });
 
             services.AddScoped<IMapper>(opt =>

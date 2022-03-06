@@ -1,8 +1,8 @@
-﻿using AutoMapper;
+﻿using ApollosLibrary.IDP.Domain.Model;
+using AutoMapper;
 using IdentityServer4.Models;
 using IdentityServer4.Stores;
 using Microsoft.EntityFrameworkCore;
-using ApollosLibrary.IDP.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +12,10 @@ namespace ApollosLibrary.IDP.Stores
 {
     public class ClientStore : IClientStore
     {
-        private readonly ApollosLibraryContext _context;
+        private readonly ApollosLibraryIDPContext _context;
         private readonly IMapper _mapper;
 
-        public ClientStore(ApollosLibraryContext context, IMapper mapper)
+        public ClientStore(ApollosLibraryIDPContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -28,7 +28,7 @@ namespace ApollosLibrary.IDP.Stores
                                              .Include("ClientRedirectUris")
                                              .Include("ClientSecrets")
                                              .Include("ClientScopes")
-                                             .FirstOrDefaultAsync(c => c.ClientId == clientId);
+                                             .FirstOrDefaultAsync(c => c.ClientIdentifier == clientId);
 
             var client = _mapper.Map<IdentityServer4.Models.Client>(clientEntity);
             client.AllowedGrantTypes = clientEntity.ClientGrantTypes.Select(c => c.GrantType).ToList();

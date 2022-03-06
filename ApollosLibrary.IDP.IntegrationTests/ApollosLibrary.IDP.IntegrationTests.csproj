@@ -27,4 +27,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ApollosLibrary.IDP\ApollosLibrary.IDP.csproj" />
+  </ItemGroup>
+
 </Project>
