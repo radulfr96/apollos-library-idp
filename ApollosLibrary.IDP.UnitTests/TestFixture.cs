@@ -68,10 +68,5 @@ namespace ApollosLibrary.IDP.Application.UnitTests
                 return _configuration;
             }
         }
-
-        ~TestFixture()
-        {
-            _context.Database.EnsureCreated();
-        }
     }
 }

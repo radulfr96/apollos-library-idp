@@ -79,10 +79,5 @@ namespace ApollosLibrary.IDP.IntegrationTests
                 return _configuration;
             }
         }
-
-        ~TestFixture()
-        {
-            _context.Database.EnsureDeleted();
-        }
     }
 }
