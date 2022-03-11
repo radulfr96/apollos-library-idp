@@ -1,4 +1,9 @@
-﻿using Bogus;
+﻿using ApollosLibrary.IDP.Application.Exceptions;
+using ApollosLibrary.IDP.Application.User.Commands.UpdatePasswordCommand;
+using ApollosLibrary.IDP.DataLayer.Contracts;
+using ApollosLibrary.IDP.Infrastructure.Interfaces;
+using ApollosLibrary.IDP.UnitOfWork.Contracts;
+using Bogus;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,14 +14,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using ApollosLibrary.IDP.Exceptions;
-using ApollosLibrary.IDP.User.Commands.UpdatePasswordCommand;
-using ApollosLibrary.IDP.Interfaces;
-using ApollosLibrary.IDP.Services;
-using ApollosLibrary.IDP.DataLayer;
-using ApollosLibrary.IDP.UnitOfWork;
 
-namespace ApollosLibrary.IDP.UnitTests
+namespace ApollosLibrary.IDP.Application.UnitTests
 {
     [Collection("UnitTestCollection")]
     public class UpdatePasswordCommandTest : TestBase

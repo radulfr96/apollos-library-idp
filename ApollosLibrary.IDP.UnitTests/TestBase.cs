@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace ApollosLibrary.IDP.UnitTests
+namespace ApollosLibrary.IDP.Application.UnitTests
 {
     public class TestBase : IDisposable
     {

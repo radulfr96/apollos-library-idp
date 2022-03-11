@@ -16,8 +16,13 @@ using ApollosLibrary.IDP.Stores;
 using ApollosLibrary.IDP.UnitOfWork;
 using System.Reflection;
 using MediatR;
-using ApollosLibrary.IDP.User.Queries.GetUserQuery;
 using ApollosLibrary.IDP.Domain.Model;
+using ApollosLibrary.IDP.Interfaces;
+using ApollosLibrary.IDP.Infrastructure.Interfaces;
+using ApollosLibrary.IDP.Application.User.Queries.GetUserQuery;
+using ApollosLibrary.IDP.UnitOfWork.Contracts;
+using ApollosLibrary.IDP.Infrastructure;
+using Microsoft.AspNetCore.Http;
 
 namespace ApollosLibrary.IDP
 {
@@ -37,8 +42,10 @@ namespace ApollosLibrary.IDP
         {
             // uncomment, if you want to add an MVC-based UI
             services.AddControllersWithViews();
+            services.AddHttpContextAccessor();
 
             services.AddMediatR(typeof(GetUserQuery).GetTypeInfo().Assembly);
+            services.AddSingleton<IDateTimeService, DateTimeService>();
 
             services.AddDbContext<ApollosLibraryIDPContext>(options => options.UseSqlServer(Configuration.GetSection("ConnectionString").Value));
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
@@ -46,7 +53,7 @@ namespace ApollosLibrary.IDP
 
             services.AddScoped<IUserService>(provider =>
             {
-                return new UserService(new UserUnitOfWork(provider.GetRequiredService<ApollosLibraryIDPContext>()), new PasswordHasher<Domain.Model.User>());
+                return new UserService(provider.GetRequiredService<IHttpContextAccessor>(), new UserUnitOfWork(provider.GetRequiredService<ApollosLibraryIDPContext>()), new PasswordHasher<Domain.Model.User>());
             });
 
             services.AddScoped<IMapper>(opt =>

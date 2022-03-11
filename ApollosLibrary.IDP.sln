@@ -5,11 +5,23 @@ VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApollosLibrary.IDP", "ApollosLibrary.IDP\ApollosLibrary.IDP.csproj", "{B4D063FC-3F0B-4BC8-9AC5-5715E4B0C01F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApollosLibrary.IDP.IntegrationTests", "ApollosLibrary.IDP.IntegrationTests\ApollosLibrary.IDP.IntegrationTests.csproj", "{27553102-72C2-4A1C-A054-B2F47ABBD8B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApollosLibrary.IDP.Application.IntegrationTests", "ApollosLibrary.IDP.IntegrationTests\ApollosLibrary.IDP.Application.IntegrationTests.csproj", "{27553102-72C2-4A1C-A054-B2F47ABBD8B5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApollosLibrary.IDP.UnitTests", "ApollosLibrary.IDP.UnitTests\ApollosLibrary.IDP.UnitTests.csproj", "{D495C476-127A-43E6-BDF1-BFF72322D00E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApollosLibrary.IDP.Application.UnitTests", "ApollosLibrary.IDP.UnitTests\ApollosLibrary.IDP.Application.UnitTests.csproj", "{D495C476-127A-43E6-BDF1-BFF72322D00E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApollosLibrary.IDP.Domain", "ApollosLibrary.IDP.Domain\ApollosLibrary.IDP.Domain.csproj", "{FCFE340D-9A31-4C13-ADD4-F073D552D7FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApollosLibrary.IDP.Domain", "ApollosLibrary.IDP.Domain\ApollosLibrary.IDP.Domain.csproj", "{FCFE340D-9A31-4C13-ADD4-F073D552D7FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApollosLibrary.IDP.Application", "ApollosLibrary.IDP.Application\ApollosLibrary.IDP.Application.csproj", "{0AF70183-8450-42F0-B2B6-C36DD280EB4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApollosLibrary.IDP.UnitOfWork.Contracts", "ApollosLibrary.IDP.UnitOfWork.Contracts\ApollosLibrary.IDP.UnitOfWork.Contracts.csproj", "{D838AA47-C720-4969-9A12-CE0F4608F5B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApollosLibrary.IDP.UnitOfWork", "ApollosLibrary.IDP.UnitOfWork\ApollosLibrary.IDP.UnitOfWork.csproj", "{A35345BE-E08D-4EE1-ACD7-29E5B64BC48D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApollosLibrary.IDP.DataLayer.Contracts", "ApollosLibrary.IDP.Datalayer.Contracts\ApollosLibrary.IDP.DataLayer.Contracts.csproj", "{F2A0B85E-0BEC-4852-AB98-0A8B87BF45C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApollosLibrary.IDP.DataLayer", "ApollosLibrary.IDP.DataLayer\ApollosLibrary.IDP.DataLayer.csproj", "{F859A4A3-4BA5-4863-B039-EFD83570BA72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApollosLibrary.IDP.Infrastructure", "ApollosLibrary.IDP.Infrastructure\ApollosLibrary.IDP.Infrastructure.csproj", "{A1E539AD-F8B7-4C6C-B4BA-BF0188363E42}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +45,30 @@ Global
 		{FCFE340D-9A31-4C13-ADD4-F073D552D7FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCFE340D-9A31-4C13-ADD4-F073D552D7FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCFE340D-9A31-4C13-ADD4-F073D552D7FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AF70183-8450-42F0-B2B6-C36DD280EB4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AF70183-8450-42F0-B2B6-C36DD280EB4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AF70183-8450-42F0-B2B6-C36DD280EB4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AF70183-8450-42F0-B2B6-C36DD280EB4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D838AA47-C720-4969-9A12-CE0F4608F5B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D838AA47-C720-4969-9A12-CE0F4608F5B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D838AA47-C720-4969-9A12-CE0F4608F5B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D838AA47-C720-4969-9A12-CE0F4608F5B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A35345BE-E08D-4EE1-ACD7-29E5B64BC48D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A35345BE-E08D-4EE1-ACD7-29E5B64BC48D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A35345BE-E08D-4EE1-ACD7-29E5B64BC48D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A35345BE-E08D-4EE1-ACD7-29E5B64BC48D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2A0B85E-0BEC-4852-AB98-0A8B87BF45C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2A0B85E-0BEC-4852-AB98-0A8B87BF45C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2A0B85E-0BEC-4852-AB98-0A8B87BF45C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2A0B85E-0BEC-4852-AB98-0A8B87BF45C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F859A4A3-4BA5-4863-B039-EFD83570BA72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F859A4A3-4BA5-4863-B039-EFD83570BA72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F859A4A3-4BA5-4863-B039-EFD83570BA72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F859A4A3-4BA5-4863-B039-EFD83570BA72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1E539AD-F8B7-4C6C-B4BA-BF0188363E42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1E539AD-F8B7-4C6C-B4BA-BF0188363E42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1E539AD-F8B7-4C6C-B4BA-BF0188363E42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1E539AD-F8B7-4C6C-B4BA-BF0188363E42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

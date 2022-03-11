@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
+using ApollosLibrary.IDP.Infrastructure.Interfaces;
 
 namespace ApollosLibrary.IDP.PasswordReset
 {

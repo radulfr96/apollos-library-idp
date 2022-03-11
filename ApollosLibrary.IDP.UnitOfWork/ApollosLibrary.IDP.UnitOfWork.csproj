@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ApollosLibrary.IDP.Datalayer.Contracts\ApollosLibrary.IDP.DataLayer.Contracts.csproj" />
+    <ProjectReference Include="..\ApollosLibrary.IDP.DataLayer\ApollosLibrary.IDP.DataLayer.csproj" />
+    <ProjectReference Include="..\ApollosLibrary.IDP.UnitOfWork.Contracts\ApollosLibrary.IDP.UnitOfWork.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

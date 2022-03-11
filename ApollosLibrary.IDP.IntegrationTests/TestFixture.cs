@@ -10,10 +10,16 @@ using System.IO;
 using Microsoft.EntityFrameworkCore;
 using ApollosLibrary.IDP.UnitOfWork;
 using MediatR;
-using ApollosLibrary.IDP.User.Commands.DeleteUserCommand;
 using Respawn.Graph;
 using System.Reflection;
 using ApollosLibrary.IDP.Domain.Model;
+using ApollosLibrary.IDP.Application;
+using ApollosLibrary.IDP.UnitOfWork.Contracts;
+using ApollosLibrary.IDP.Application.User.Commands.DeleteUserCommand;
+using ApollosLibrary.IDP.Infrastructure.Interfaces;
+using Microsoft.AspNetCore.Http;
+using ApollosLibrary.IDP.Infrastructure;
+using Microsoft.AspNetCore.Identity;
 
 namespace ApollosLibrary.IDP.IntegrationTests
 {
@@ -22,7 +28,6 @@ namespace ApollosLibrary.IDP.IntegrationTests
         public IServiceCollection ServiceCollection { get; private set; }
         private readonly ApollosLibraryIDPContext _context;
         private readonly Configuration _configuration;
-        private readonly Checkpoint _checkpoint;
 
         public TestFixture()
         {
@@ -45,10 +50,17 @@ namespace ApollosLibrary.IDP.IntegrationTests
                 opt.UseSqlServer(localConfig.GetSection("ConnectionString").Value);
             });
             _context = new ApollosLibraryIDPContext(optionsBuilder.Options);
-            _context.Database.EnsureCreated();
 
-            services.AddTransient<IUserUnitOfWork>(p => {
+            _context.Database.Migrate();
+
+            services.AddTransient<IUserUnitOfWork>(p =>
+            {
                 return new UserUnitOfWork(p.GetRequiredService<ApollosLibraryIDPContext>());
+            });
+
+            services.AddSingleton<IUserService>(p =>
+            {
+                return new UserService(p.GetRequiredService<IHttpContextAccessor>(), new UserUnitOfWork(p.GetRequiredService<ApollosLibraryIDPContext>()), new PasswordHasher<User>());
             });
 
             localConfig.Bind(_configuration);
@@ -56,12 +68,6 @@ namespace ApollosLibrary.IDP.IntegrationTests
             services.AddHttpContextAccessor();
 
             services.AddMediatR(typeof(DeleteUserCommandHandler).GetTypeInfo().Assembly);
-
-            _checkpoint = new Checkpoint
-            {
-                SchemasToInclude = new string[] { "Author", "Book", "Genre", "Publisher" },
-                TablesToInclude = new Table[] { "Author", "Book", "Genre", "BookAuthor", "BookGenre", "Publisher" },
-            };
 
             ServiceCollection = services;
         }
@@ -72,11 +78,6 @@ namespace ApollosLibrary.IDP.IntegrationTests
             {
                 return _configuration;
             }
-        }
-
-        public void ResetCheckpoint()
-        {
-            _checkpoint.Reset(_configuration.ConnectionString).Wait();
         }
 
         ~TestFixture()

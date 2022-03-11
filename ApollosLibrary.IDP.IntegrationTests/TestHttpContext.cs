@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Http.Features;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,8 @@ namespace ApollosLibrary.IDP.IntegrationTests
         public override CancellationToken RequestAborted { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public override string TraceIdentifier { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public override ISession Session { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public override AuthenticationManager Authentication => throw new NotImplementedException();
 
         public override void Abort()
         {

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using ApollosLibrary.IDP.Infrastructure.Interfaces;
 
 namespace ApollosLibrary.IDP.UserRegistration
 {

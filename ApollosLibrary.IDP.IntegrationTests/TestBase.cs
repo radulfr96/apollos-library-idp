@@ -19,7 +19,6 @@ namespace ApollosLibrary.IDP.IntegrationTests
 
         public void Dispose()
         {
-            _fixture.ResetCheckpoint();
         }
     }
 }

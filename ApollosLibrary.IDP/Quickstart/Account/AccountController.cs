@@ -19,6 +19,7 @@ using ApollosLibrary.IDP.Services;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using ApollosLibrary.IDP.Infrastructure.Interfaces;
 
 namespace IdentityServerHost.Quickstart.UI
 {

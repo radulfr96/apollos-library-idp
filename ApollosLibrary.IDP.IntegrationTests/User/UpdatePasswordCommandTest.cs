@@ -12,10 +12,10 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using ApollosLibrary.IDP.Interfaces;
-using ApollosLibrary.IDP.User.Commands.UpdatePasswordCommand;
 using Xunit;
 using ApollosLibrary.IDP.Domain.Model;
+using ApollosLibrary.IDP.Infrastructure.Interfaces;
+using ApollosLibrary.IDP.Application.User.Commands.UpdatePasswordCommand;
 
 namespace ApollosLibrary.IDP.IntegrationTests
 {

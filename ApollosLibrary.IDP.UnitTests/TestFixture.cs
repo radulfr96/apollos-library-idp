@@ -10,19 +10,20 @@ using System.IO;
 using Microsoft.EntityFrameworkCore;
 using ApollosLibrary.IDP.UnitOfWork;
 using MediatR;
-using ApollosLibrary.IDP.User.Commands.DeleteUserCommand;
 using Respawn.Graph;
 using System.Reflection;
 using ApollosLibrary.IDP.Domain.Model;
+using ApollosLibrary.IDP.Application;
+using ApollosLibrary.IDP.UnitOfWork.Contracts;
+using ApollosLibrary.IDP.Application.User.Commands.DeleteUserCommand;
 
-namespace ApollosLibrary.IDP.UnitTests
+namespace ApollosLibrary.IDP.Application.UnitTests
 {
     public class TestFixture
     {
         public IServiceCollection ServiceCollection { get; private set; }
         private readonly ApollosLibraryIDPContext _context;
         private readonly Configuration _configuration;
-        private readonly Checkpoint _checkpoint;
 
         public TestFixture()
         {
@@ -45,6 +46,7 @@ namespace ApollosLibrary.IDP.UnitTests
                 opt.UseSqlServer(localConfig.GetSection("ConnectionString").Value);
             });
             _context = new ApollosLibraryIDPContext(optionsBuilder.Options);
+            _context.Database.Migrate();
 
             services.AddTransient<IUserUnitOfWork>(p => {
                 return new UserUnitOfWork(p.GetRequiredService<ApollosLibraryIDPContext>());
@@ -55,12 +57,6 @@ namespace ApollosLibrary.IDP.UnitTests
             services.AddHttpContextAccessor();
 
             services.AddMediatR(typeof(DeleteUserCommandHandler).GetTypeInfo().Assembly);
-
-            _checkpoint = new Checkpoint
-            {
-                SchemasToInclude = new string[] { "Author", "Book", "Genre", "Publisher" },
-                TablesToInclude = new Table[] { "Author", "Book", "Genre", "BookAuthor", "BookGenre", "Publisher" },
-            };
 
             ServiceCollection = services;
         }
@@ -73,9 +69,9 @@ namespace ApollosLibrary.IDP.UnitTests
             }
         }
 
-        public void ResetCheckpoint()
+        ~TestFixture()
         {
-            _checkpoint.Reset(_configuration.ConnectionString).Wait();
+            _context.Database.EnsureCreated();
         }
     }
 }
