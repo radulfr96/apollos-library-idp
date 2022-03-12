@@ -22,7 +22,6 @@ namespace ApollosLibrary.IDP.Application.UnitTests
     public class TestFixture
     {
         public IServiceCollection ServiceCollection { get; private set; }
-        private readonly ApollosLibraryIDPContext _context;
         private readonly Configuration _configuration;
 
         public TestFixture()
@@ -37,16 +36,11 @@ namespace ApollosLibrary.IDP.Application.UnitTests
 
             _configuration = new Configuration();
 
-            var optionsBuilder = new DbContextOptionsBuilder<ApollosLibraryIDPContext>();
-            optionsBuilder.UseSqlServer(localConfig.GetSection("ConnectionString").Value);
-
             services.AddHttpContextAccessor();
             services.AddDbContext<ApollosLibraryIDPContext>(opt =>
             {
-                opt.UseSqlServer(localConfig.GetSection("ConnectionString").Value);
+                opt.UseInMemoryDatabase("ApollosLibraryTestIDPDB");
             });
-            _context = new ApollosLibraryIDPContext(optionsBuilder.Options);
-            _context.Database.Migrate();
 
             services.AddTransient<IUserUnitOfWork>(p => {
                 return new UserUnitOfWork(p.GetRequiredService<ApollosLibraryIDPContext>());
