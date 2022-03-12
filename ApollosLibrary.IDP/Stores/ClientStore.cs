@@ -24,10 +24,11 @@ namespace ApollosLibrary.IDP.Stores
         public async Task<IdentityServer4.Models.Client> FindClientByIdAsync(string clientId)
         {
             var clientEntity = await _context.Clients
-                                             .Include("ClientGrantTypes")
-                                             .Include("ClientRedirectUris")
-                                             .Include("ClientSecrets")
-                                             .Include("ClientScopes")
+                                             .Include(c => c.ClientGrantTypes)
+                                             .Include(c => c.ClientRedirectUris)
+                                             .Include(c => c.ClientSecrets)
+                                             .Include(c => c.ClientScopes)
+                                             .Include(c => c.ClientCorsOrigins)
                                              .FirstOrDefaultAsync(c => c.ClientIdentifier == clientId);
 
             var client = _mapper.Map<IdentityServer4.Models.Client>(clientEntity);

@@ -23,6 +23,8 @@ using ApollosLibrary.IDP.Application.User.Queries.GetUserQuery;
 using ApollosLibrary.IDP.UnitOfWork.Contracts;
 using ApollosLibrary.IDP.Infrastructure;
 using Microsoft.AspNetCore.Http;
+using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace ApollosLibrary.IDP
 {
@@ -77,7 +79,34 @@ namespace ApollosLibrary.IDP
                 .AddClientStore<ClientStore>()
                 .AddDeviceFlowStore<DeviceFlowStore>()
                 .AddPersistedGrantStore<PersistedGrantStore>()
-                .AddProfileService<ProfileService>();
+                .AddProfileService<ProfileService>()
+                .AddCorsPolicyService<CORSPolicyService>();
+
+            services.AddSwaggerGen(c =>
+            {
+                // configure SwaggerDoc and others
+
+                // add JWT Authentication
+                var securityScheme = new OpenApiSecurityScheme
+                {
+                    Name = "JWT Authentication",
+                    Description = "Enter JWT Bearer token **_only_**",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer", // must be lower case
+                    BearerFormat = "JWT",
+                    Reference = new OpenApiReference
+                    {
+                        Id = JwtBearerDefaults.AuthenticationScheme,
+                        Type = ReferenceType.SecurityScheme
+                    }
+                };
+                c.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {securityScheme, new string[] { }}
+                });
+            });
         }
 
         public void Configure(IApplicationBuilder app, DbContext dbContext)
@@ -94,18 +123,22 @@ namespace ApollosLibrary.IDP
             }
 
             app.UseStaticFiles();
-            app.UseCors(options =>
-            {
-                options
-                .AllowAnyOrigin()
-                .AllowAnyHeader();
-            });
 
             app.UseIdentityServer();
+
+            app.UseSwagger();
+            app.UseSwaggerUI();
+            app.UseCors(opt =>
+            {
+                opt.AllowAnyHeader();
+                opt.AllowAnyMethod();
+                opt.AllowAnyOrigin();
+            });
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
+                endpoints.MapControllers();
             });
         }
     }

@@ -565,8 +565,8 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 columns: new[] { "ApiResourceId", "AllowedAccessTokenSigningAlgorithms", "Created", "Description", "DisplayName", "Enabled", "LastAccessed", "Name", "NonEditable", "ShowInDiscoveryDocument", "Updated" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7422), "Open ID", "Open ID", true, null, "openid", false, true, null },
-                    { 2, null, new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7429), "Apollo's Library Website", "Apollo's Library Website", true, null, "apolloslibrarywebsite", false, true, null }
+                    { 1, null, new DateTime(2022, 3, 12, 14, 35, 32, 164, DateTimeKind.Local).AddTicks(5128), "Open ID", "Open ID", true, null, "openid", false, true, null },
+                    { 2, null, new DateTime(2022, 3, 12, 14, 35, 32, 164, DateTimeKind.Local).AddTicks(5135), "Apollo's Library Website", "Apollo's Library Website", true, null, "apolloslibrarywebsite", false, true, null }
                 });
 
             migrationBuilder.InsertData(
@@ -577,25 +577,25 @@ namespace ApollosLibrary.IDP.Domain.Migrations
             migrationBuilder.InsertData(
                 table: "Clients",
                 columns: new[] { "ClientId", "AbsoluteRefreshTokenLifetime", "AccessTokenLifetime", "AccessTokenType", "AllowAccessTokensViaBrowser", "AllowOfflineAccess", "AllowPlainTextPkce", "AllowRememberConsent", "AllowedIdentityTokenSigningAlgorithms", "AlwaysIncludeUserClaimsInIdToken", "AlwaysSendClientClaims", "AuthorizationCodeLifetime", "BackChannelLogoutSessionRequired", "BackChannelLogoutUri", "ClientClaimsPrefix", "ClientIdentifier", "ClientName", "ClientUri", "ConsentLifetime", "Created", "Description", "DeviceCodeLifetime", "EnableLocalLogin", "Enabled", "FrontChannelLogoutSessionRequired", "FrontChannelLogoutUri", "IdentityTokenLifetime", "IncludeJwtId", "LastAccessed", "LogoUri", "NonEditable", "PairWiseSubjectSalt", "ProtocolType", "RefreshTokenExpiration", "RefreshTokenUsage", "RequireClientSecret", "RequireConsent", "RequirePkce", "RequireRequestObject", "SlidingRefreshTokenLifetime", "UpdateAccessTokenClaimsOnRefresh", "Updated", "UserCodeType", "UserSsoLifetime" },
-                values: new object[] { 1, 6000, 6000, 0, true, true, false, false, null, true, true, 6000, true, null, null, "apolloslibrarywebapp", "Apollo's Library Web App", null, null, new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7524), "Apollo's Library Web App", 6000, true, true, true, null, 6000, true, null, null, false, null, "oidc", "Sliding", "ReUse", false, false, true, false, 6000, true, null, null, null });
+                values: new object[] { 1, 6000, 6000, 0, true, true, false, false, null, true, true, 6000, true, null, null, "apolloslibrarywebapp", "Apollo's Library Web App", null, null, new DateTime(2022, 3, 12, 14, 35, 32, 164, DateTimeKind.Local).AddTicks(5193), "Apollo's Library Web App", 6000, true, true, true, null, 6000, true, null, null, false, null, "oidc", "Sliding", "ReUse", false, false, true, false, 6000, true, null, null, null });
 
             migrationBuilder.InsertData(
                 table: "IdentityResources",
                 columns: new[] { "IdentityResourceId", "Created", "Description", "DisplayName", "Emphasize", "Enabled", "Name", "NonEditable", "Required", "ShowInDiscoveryDocument", "Updated" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7597), "openid", "Opend ID", false, true, "openid", false, true, true, null },
-                    { 2, new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7601), "User claims", "User Claims", false, true, "claims", false, true, true, null },
-                    { 3, new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7604), "User Profile", "User Profile", false, true, "profile", false, true, true, null },
-                    { 4, new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7606), "Username", "Username", false, true, "username", false, true, true, null },
-                    { 5, new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7608), "User Role", "User Role", false, true, "role", false, true, true, null },
-                    { 6, new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7611), "User Email", "User Email", false, true, "email", false, true, true, null }
+                    { 1, new DateTime(2022, 3, 12, 14, 35, 32, 164, DateTimeKind.Local).AddTicks(5333), "openid", "Opend ID", false, true, "openid", false, true, true, null },
+                    { 2, new DateTime(2022, 3, 12, 14, 35, 32, 164, DateTimeKind.Local).AddTicks(5339), "User claims", "User Claims", false, true, "claims", false, true, true, null },
+                    { 3, new DateTime(2022, 3, 12, 14, 35, 32, 164, DateTimeKind.Local).AddTicks(5341), "User Profile", "User Profile", false, true, "profile", false, true, true, null },
+                    { 4, new DateTime(2022, 3, 12, 14, 35, 32, 164, DateTimeKind.Local).AddTicks(5343), "Username", "Username", false, true, "username", false, true, true, null },
+                    { 5, new DateTime(2022, 3, 12, 14, 35, 32, 164, DateTimeKind.Local).AddTicks(5345), "User Role", "User Role", false, true, "role", false, true, true, null },
+                    { 6, new DateTime(2022, 3, 12, 14, 35, 32, 164, DateTimeKind.Local).AddTicks(5349), "User Email", "User Email", false, true, "email", false, true, true, null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "UserId", "CreatedBy", "CreatedDate", "IsActive", "ModifiedBy", "ModifiedDate", "Password", "SecurityCode", "SecurityCodeExpirationDate", "Subject", "Username" },
-                values: new object[] { new Guid("4e497bc1-4601-4e4c-880d-90370cbfc29e"), new Guid("4e497bc1-4601-4e4c-880d-90370cbfc29e"), new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7233), true, null, null, "AQAAAAEAACcQAAAAECY64tCZ5CSbcXzOp4NE6XAr1TB9wQ1zgMv6Sa49QGTmEftnFXzPMsBH+NB1cu5brw==", null, null, "32d9e959-7704-420d-9952-0d1f82859f8b", "radulfr" });
+                values: new object[] { new Guid("86632ed8-5211-4873-866e-5e3246496fb9"), new Guid("86632ed8-5211-4873-866e-5e3246496fb9"), new DateTime(2022, 3, 12, 14, 35, 32, 164, DateTimeKind.Local).AddTicks(4928), true, null, null, "AQAAAAEAACcQAAAAECY64tCZ5CSbcXzOp4NE6XAr1TB9wQ1zgMv6Sa49QGTmEftnFXzPMsBH+NB1cu5brw==", null, null, "f42e7750-2a07-4b13-b62a-4f34d5d51906", "radulfr" });
 
             migrationBuilder.InsertData(
                 table: "ApiResourceClaims",
@@ -609,6 +609,11 @@ namespace ApollosLibrary.IDP.Domain.Migrations
             migrationBuilder.InsertData(
                 table: "ClientCorsOrigins",
                 columns: new[] { "ClientCorsOriginId", "ClientId", "Origin" },
+                values: new object[] { 1, 1, "http://localhost:3000" });
+
+            migrationBuilder.InsertData(
+                table: "ClientGrantTypes",
+                columns: new[] { "ClientGrantTypeId", "ClientId", "GrantType" },
                 values: new object[,]
                 {
                     { 1, 1, "password" },
@@ -616,6 +621,11 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                     { 3, 1, "implicit" },
                     { 4, 1, "refresh_token" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "ClientRedirectUris",
+                columns: new[] { "ClientRedirectUriId", "ClientId", "RedirectUri" },
+                values: new object[] { 1, 1, "http://localhost:3000/callback" });
 
             migrationBuilder.InsertData(
                 table: "ClientScopes",
@@ -634,17 +644,17 @@ namespace ApollosLibrary.IDP.Domain.Migrations
             migrationBuilder.InsertData(
                 table: "ClientSecrets",
                 columns: new[] { "ClientSecretId", "ClientId", "Created", "Description", "Expiration", "Type", "Value" },
-                values: new object[] { 1, 1, new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7578), "apolloslibrarywebsite", null, "SharedSecret", "979eb386dc9a387d614b72902e44f5cb295636d71f829d2afccff401eb794bd6" });
+                values: new object[] { 1, 1, new DateTime(2022, 3, 12, 14, 35, 32, 164, DateTimeKind.Local).AddTicks(5263), "apolloslibrarywebsite", null, "SharedSecret", "979eb386dc9a387d614b72902e44f5cb295636d71f829d2afccff401eb794bd6" });
 
             migrationBuilder.InsertData(
                 table: "UserClaims",
                 columns: new[] { "UserClaimId", "Type", "UserId", "Value" },
                 values: new object[,]
                 {
-                    { new Guid("177cd937-6d7a-486c-92ef-c30e2d40da75"), "role", new Guid("4e497bc1-4601-4e4c-880d-90370cbfc29e"), "administrator" },
-                    { new Guid("2cf91594-0239-4954-94da-6b3c8be5d458"), "role", new Guid("4e497bc1-4601-4e4c-880d-90370cbfc29e"), "freeaccount" },
-                    { new Guid("9efa9548-55f0-4574-95e0-44986e72ced6"), "role", new Guid("4e497bc1-4601-4e4c-880d-90370cbfc29e"), "moderator" },
-                    { new Guid("db0e4896-5d60-4306-a51b-cb7397b04b7b"), "emailaddress", new Guid("4e497bc1-4601-4e4c-880d-90370cbfc29e"), "wados.russell70@gmail.com" }
+                    { new Guid("0859b522-91b1-4b92-970e-c84a4f41a095"), "role", new Guid("86632ed8-5211-4873-866e-5e3246496fb9"), "administrator" },
+                    { new Guid("2f557c63-7824-4dbd-b848-b4f587528479"), "role", new Guid("86632ed8-5211-4873-866e-5e3246496fb9"), "moderator" },
+                    { new Guid("750f1673-6bbd-403f-b6e7-15e6fb7c3d6d"), "emailaddress", new Guid("86632ed8-5211-4873-866e-5e3246496fb9"), "wados.russell70@gmail.com" },
+                    { new Guid("8aa2b28f-b8e2-4bd1-a87b-ed7ea6c8b0d1"), "role", new Guid("86632ed8-5211-4873-866e-5e3246496fb9"), "freeaccount" }
                 });
 
             migrationBuilder.CreateIndex(

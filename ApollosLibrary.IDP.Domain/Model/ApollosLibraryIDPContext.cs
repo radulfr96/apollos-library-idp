@@ -187,32 +187,42 @@ namespace ApollosLibrary.IDP.Domain.Model
                 UserSsoLifetime = null,
             });
 
+            modelBuilder.Entity<ClientGrantType>().HasData(new List<ClientGrantType>()
+            {
+                new ClientGrantType()
+                {
+                    ClientGrantTypeId = 1,
+                    GrantType = "password",
+                    ClientId = 1,
+                },
+                new ClientGrantType()
+                {
+                    ClientGrantTypeId = 2,
+                    GrantType = "client_credentials",
+                    ClientId = 1,
+                },
+                new ClientGrantType()
+                {
+                    ClientGrantTypeId = 3,
+                    GrantType = "implicit",
+                    ClientId = 1,
+                },
+                new ClientGrantType()
+                {
+                    ClientGrantTypeId = 4,
+                    GrantType = "refresh_token",
+                    ClientId = 1,
+                },
+            });
+
             modelBuilder.Entity<ClientCorsOrigin>().HasData(new List<ClientCorsOrigin>()
             {
                 new ClientCorsOrigin()
                 {
                     ClientCorsOriginId = 1,
-                    Origin = "password",
                     ClientId = 1,
-                },
-                new ClientCorsOrigin()
-                {
-                    ClientCorsOriginId = 2,
-                    Origin = "client_credentials",
-                    ClientId = 1,
-                },
-                new ClientCorsOrigin()
-                {
-                    ClientCorsOriginId = 3,
-                    Origin = "implicit",
-                    ClientId = 1,
-                },
-                new ClientCorsOrigin()
-                {
-                    ClientCorsOriginId = 4,
-                    Origin = "refresh_token",
-                    ClientId = 1,
-                },
+                    Origin = "http://localhost:3000"
+                }
             });
 
             modelBuilder.Entity<ClientScope>().HasData(new List<ClientScope>()
@@ -273,6 +283,13 @@ namespace ApollosLibrary.IDP.Domain.Model
                     Value = "979eb386dc9a387d614b72902e44f5cb295636d71f829d2afccff401eb794bd6",
                     ClientId = 1,
                 },
+            });
+
+            modelBuilder.Entity<ClientRedirectUri>().HasData(new ClientRedirectUri()
+            {
+                ClientId = 1,
+                ClientRedirectUriId = 1,
+                RedirectUri = "http://localhost:3000/callback"
             });
 
             modelBuilder.Entity<IdentityResource>().HasData(new List<IdentityResource>()

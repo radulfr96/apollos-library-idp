@@ -13,7 +13,8 @@ namespace ApollosLibrary.IDP
         {
             return new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<Client, IdentityServer4.Models.Client>();
+                cfg.CreateMap<Client, IdentityServer4.Models.Client>()
+                    .ForMember(dest => dest.ClientId, opt => opt.MapFrom(src => src.ClientIdentifier));
                 cfg.CreateMap<IdentityResource, IdentityServer4.Models.IdentityResource>();
                 cfg.CreateMap<ApiResource, IdentityServer4.Models.ApiResource>();
                 cfg.CreateMap<ApiScope, IdentityServer4.Models.ApiScope>();

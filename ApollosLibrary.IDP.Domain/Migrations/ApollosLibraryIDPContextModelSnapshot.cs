@@ -17,7 +17,7 @@ namespace ApollosLibrary.IDP.Domain.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.2")
+                .HasAnnotation("ProductVersion", "6.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -68,7 +68,7 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                         new
                         {
                             ApiResourceId = 1,
-                            Created = new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7422),
+                            Created = new DateTime(2022, 3, 12, 14, 35, 32, 164, DateTimeKind.Local).AddTicks(5128),
                             Description = "Open ID",
                             DisplayName = "Open ID",
                             Enabled = true,
@@ -79,7 +79,7 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                         new
                         {
                             ApiResourceId = 2,
-                            Created = new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7429),
+                            Created = new DateTime(2022, 3, 12, 14, 35, 32, 164, DateTimeKind.Local).AddTicks(5135),
                             Description = "Apollo's Library Website",
                             DisplayName = "Apollo's Library Website",
                             Enabled = true,
@@ -452,7 +452,7 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                             BackChannelLogoutSessionRequired = true,
                             ClientIdentifier = "apolloslibrarywebapp",
                             ClientName = "Apollo's Library Web App",
-                            Created = new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7524),
+                            Created = new DateTime(2022, 3, 12, 14, 35, 32, 164, DateTimeKind.Local).AddTicks(5193),
                             Description = "Apollo's Library Web App",
                             DeviceCodeLifetime = 6000,
                             EnableLocalLogin = true,
@@ -522,25 +522,7 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                         {
                             ClientCorsOriginId = 1,
                             ClientId = 1,
-                            Origin = "password"
-                        },
-                        new
-                        {
-                            ClientCorsOriginId = 2,
-                            ClientId = 1,
-                            Origin = "client_credentials"
-                        },
-                        new
-                        {
-                            ClientCorsOriginId = 3,
-                            ClientId = 1,
-                            Origin = "implicit"
-                        },
-                        new
-                        {
-                            ClientCorsOriginId = 4,
-                            ClientId = 1,
-                            Origin = "refresh_token"
+                            Origin = "http://localhost:3000"
                         });
                 });
 
@@ -563,6 +545,32 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                     b.HasIndex("ClientId");
 
                     b.ToTable("ClientGrantTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            ClientGrantTypeId = 1,
+                            ClientId = 1,
+                            GrantType = "password"
+                        },
+                        new
+                        {
+                            ClientGrantTypeId = 2,
+                            ClientId = 1,
+                            GrantType = "client_credentials"
+                        },
+                        new
+                        {
+                            ClientGrantTypeId = 3,
+                            ClientId = 1,
+                            GrantType = "implicit"
+                        },
+                        new
+                        {
+                            ClientGrantTypeId = 4,
+                            ClientId = 1,
+                            GrantType = "refresh_token"
+                        });
                 });
 
             modelBuilder.Entity("ApollosLibrary.IDP.Domain.Model.ClientIdPrestriction", b =>
@@ -650,6 +658,14 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                     b.HasIndex("ClientId");
 
                     b.ToTable("ClientRedirectUris");
+
+                    b.HasData(
+                        new
+                        {
+                            ClientRedirectUriId = 1,
+                            ClientId = 1,
+                            RedirectUri = "http://localhost:3000/callback"
+                        });
                 });
 
             modelBuilder.Entity("ApollosLibrary.IDP.Domain.Model.ClientScope", b =>
@@ -754,7 +770,7 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                         {
                             ClientSecretId = 1,
                             ClientId = 1,
-                            Created = new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7578),
+                            Created = new DateTime(2022, 3, 12, 14, 35, 32, 164, DateTimeKind.Local).AddTicks(5263),
                             Description = "apolloslibrarywebsite",
                             Type = "SharedSecret",
                             Value = "979eb386dc9a387d614b72902e44f5cb295636d71f829d2afccff401eb794bd6"
@@ -841,7 +857,7 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                         new
                         {
                             IdentityResourceId = 1,
-                            Created = new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7597),
+                            Created = new DateTime(2022, 3, 12, 14, 35, 32, 164, DateTimeKind.Local).AddTicks(5333),
                             Description = "openid",
                             DisplayName = "Opend ID",
                             Emphasize = false,
@@ -854,7 +870,7 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                         new
                         {
                             IdentityResourceId = 2,
-                            Created = new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7601),
+                            Created = new DateTime(2022, 3, 12, 14, 35, 32, 164, DateTimeKind.Local).AddTicks(5339),
                             Description = "User claims",
                             DisplayName = "User Claims",
                             Emphasize = false,
@@ -867,7 +883,7 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                         new
                         {
                             IdentityResourceId = 3,
-                            Created = new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7604),
+                            Created = new DateTime(2022, 3, 12, 14, 35, 32, 164, DateTimeKind.Local).AddTicks(5341),
                             Description = "User Profile",
                             DisplayName = "User Profile",
                             Emphasize = false,
@@ -880,7 +896,7 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                         new
                         {
                             IdentityResourceId = 4,
-                            Created = new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7606),
+                            Created = new DateTime(2022, 3, 12, 14, 35, 32, 164, DateTimeKind.Local).AddTicks(5343),
                             Description = "Username",
                             DisplayName = "Username",
                             Emphasize = false,
@@ -893,7 +909,7 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                         new
                         {
                             IdentityResourceId = 5,
-                            Created = new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7608),
+                            Created = new DateTime(2022, 3, 12, 14, 35, 32, 164, DateTimeKind.Local).AddTicks(5345),
                             Description = "User Role",
                             DisplayName = "User Role",
                             Emphasize = false,
@@ -906,7 +922,7 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                         new
                         {
                             IdentityResourceId = 6,
-                            Created = new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7611),
+                            Created = new DateTime(2022, 3, 12, 14, 35, 32, 164, DateTimeKind.Local).AddTicks(5349),
                             Description = "User Email",
                             DisplayName = "User Email",
                             Emphasize = false,
@@ -1043,12 +1059,12 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("4e497bc1-4601-4e4c-880d-90370cbfc29e"),
-                            CreatedBy = new Guid("4e497bc1-4601-4e4c-880d-90370cbfc29e"),
-                            CreatedDate = new DateTime(2022, 3, 6, 19, 24, 26, 331, DateTimeKind.Local).AddTicks(7233),
+                            UserId = new Guid("86632ed8-5211-4873-866e-5e3246496fb9"),
+                            CreatedBy = new Guid("86632ed8-5211-4873-866e-5e3246496fb9"),
+                            CreatedDate = new DateTime(2022, 3, 12, 14, 35, 32, 164, DateTimeKind.Local).AddTicks(4928),
                             IsActive = true,
                             Password = "AQAAAAEAACcQAAAAECY64tCZ5CSbcXzOp4NE6XAr1TB9wQ1zgMv6Sa49QGTmEftnFXzPMsBH+NB1cu5brw==",
-                            Subject = "32d9e959-7704-420d-9952-0d1f82859f8b",
+                            Subject = "f42e7750-2a07-4b13-b62a-4f34d5d51906",
                             Username = "radulfr"
                         });
                 });
@@ -1077,30 +1093,30 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                     b.HasData(
                         new
                         {
-                            UserClaimId = new Guid("177cd937-6d7a-486c-92ef-c30e2d40da75"),
+                            UserClaimId = new Guid("0859b522-91b1-4b92-970e-c84a4f41a095"),
                             Type = "role",
-                            UserId = new Guid("4e497bc1-4601-4e4c-880d-90370cbfc29e"),
+                            UserId = new Guid("86632ed8-5211-4873-866e-5e3246496fb9"),
                             Value = "administrator"
                         },
                         new
                         {
-                            UserClaimId = new Guid("9efa9548-55f0-4574-95e0-44986e72ced6"),
+                            UserClaimId = new Guid("2f557c63-7824-4dbd-b848-b4f587528479"),
                             Type = "role",
-                            UserId = new Guid("4e497bc1-4601-4e4c-880d-90370cbfc29e"),
+                            UserId = new Guid("86632ed8-5211-4873-866e-5e3246496fb9"),
                             Value = "moderator"
                         },
                         new
                         {
-                            UserClaimId = new Guid("2cf91594-0239-4954-94da-6b3c8be5d458"),
+                            UserClaimId = new Guid("8aa2b28f-b8e2-4bd1-a87b-ed7ea6c8b0d1"),
                             Type = "role",
-                            UserId = new Guid("4e497bc1-4601-4e4c-880d-90370cbfc29e"),
+                            UserId = new Guid("86632ed8-5211-4873-866e-5e3246496fb9"),
                             Value = "freeaccount"
                         },
                         new
                         {
-                            UserClaimId = new Guid("db0e4896-5d60-4306-a51b-cb7397b04b7b"),
+                            UserClaimId = new Guid("750f1673-6bbd-403f-b6e7-15e6fb7c3d6d"),
                             Type = "emailaddress",
-                            UserId = new Guid("4e497bc1-4601-4e4c-880d-90370cbfc29e"),
+                            UserId = new Guid("86632ed8-5211-4873-866e-5e3246496fb9"),
                             Value = "wados.russell70@gmail.com"
                         });
                 });
