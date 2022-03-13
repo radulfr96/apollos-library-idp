@@ -25,6 +25,7 @@ using ApollosLibrary.IDP.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using IdentityServer4;
 
 namespace ApollosLibrary.IDP
 {
@@ -64,6 +65,15 @@ namespace ApollosLibrary.IDP
             });
 
             services.AddTransient<IUserUnitOfWork, UserUnitOfWork>();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
+
+            services.AddLocalApiAuthentication();
 
             var builder = services.AddIdentityServer(options =>
             {
@@ -128,12 +138,7 @@ namespace ApollosLibrary.IDP
 
             app.UseSwagger();
             app.UseSwaggerUI();
-            app.UseCors(opt =>
-            {
-                opt.AllowAnyHeader();
-                opt.AllowAnyMethod();
-                opt.AllowAnyOrigin();
-            });
+            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {

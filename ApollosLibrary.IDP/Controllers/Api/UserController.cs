@@ -9,10 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading.Tasks;
+using static IdentityServer4.IdentityServerConstants;
 
 namespace ApollosLibrary.IDP.Controllers.Api
 {
-    [Authorize]
+    [Authorize(LocalApi.PolicyName)]
     [ApiController]
     [Route("api/[controller]")]
     public class UserController

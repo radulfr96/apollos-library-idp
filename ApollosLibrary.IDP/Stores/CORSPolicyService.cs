@@ -17,17 +17,15 @@ namespace ApollosLibrary.IDP.Stores
 
         public async Task<bool> IsOriginAllowedAsync(string origin)
         {
-            var result = true;
+            origin = origin.ToLowerInvariant();
 
-            //var allowedOrigins = await _context.ClientCorsOrigins
-            //                                .Select(o => o.Origin)
-            //                                .Distinct()
-            //                                .ToListAsync();
-            //if (allowedOrigins.Any())
-            //{
-            //    result = allowedOrigins.Contains(origin);
-            //}
-            return result;
+            var query = from o in _context.ClientCorsOrigins
+                        where o.Origin == origin
+                        select o;
+
+            var isAllowed = await query.AnyAsync();
+
+            return isAllowed;
         }
     }
 }

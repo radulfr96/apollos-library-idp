@@ -114,6 +114,18 @@ namespace ApollosLibrary.IDP.Domain.Model
                     NonEditable = false,
                     ShowInDiscoveryDocument = true,
                 },
+                new ApiResource()
+                {
+                    AllowedAccessTokenSigningAlgorithms = null,
+                    ApiResourceId = 3,
+                    Created = DateTime.Now,
+                    Description = "API in the IDP app to manage users",
+                    DisplayName = "User API",
+                    Enabled = true,
+                    Name = "IdentityServerApi",
+                    NonEditable = false,
+                    ShowInDiscoveryDocument = true,
+                }
             });
 
             modelBuilder.Entity<ApiResourceClaim>().HasData(new List<ApiResourceClaim>()
@@ -141,6 +153,16 @@ namespace ApollosLibrary.IDP.Domain.Model
                 Emphasize = false,
                 Enabled = true,
                 Name = "apolloslibraryapi",
+                Required = true,
+            }, new ApiScope()
+            {
+                ApiScopeId = 2,
+                ShowInDiscoveryDocument = true,
+                Description = "Provides access to the My Library User API in the IDP App",
+                DisplayName = "Apollo's Library User API",
+                Emphasize = false,
+                Enabled = true,
+                Name = "IdentityServerApi",
                 Required = true,
             });
 
@@ -267,6 +289,12 @@ namespace ApollosLibrary.IDP.Domain.Model
                 {
                     ClientScopeId = 7,
                     Scope = "offline_access",
+                    ClientId = 1,
+                },
+                new ClientScope()
+                {
+                    ClientScopeId = 8,
+                    Scope = "IdentityServerApi",
                     ClientId = 1,
                 },
             });
