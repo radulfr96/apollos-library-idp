@@ -23,7 +23,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ApollosLibrary.IDP.IntegrationTests
 {
-    public class TestFixture
+    public class TestFixture : IDisposable
     {
         public IServiceCollection ServiceCollection { get; private set; }
         private readonly ApollosLibraryIDPContext _context;
@@ -40,18 +40,19 @@ namespace ApollosLibrary.IDP.IntegrationTests
                 .Build();
 
             _configuration = new Configuration();
-
-            var optionsBuilder = new DbContextOptionsBuilder<ApollosLibraryIDPContext>();
-            optionsBuilder.UseSqlServer(localConfig.GetSection("ConnectionString").Value);
-
             services.AddHttpContextAccessor();
             services.AddDbContext<ApollosLibraryIDPContext>(opt =>
             {
-                opt.UseSqlServer(localConfig.GetSection("ConnectionString").Value);
-            });
-            _context = new ApollosLibraryIDPContext(optionsBuilder.Options);
+                var connectionString = localConfig.GetSection("ConnectionString").Value;
+                connectionString = connectionString.Replace("{UniqueId}", DateTime.Now.ToString("yyyy-MM-dd_THH-mm-ss-fffffffzzz"));
 
-            _context.Database.Migrate();
+                opt.UseSqlServer(connectionString);
+            });
+
+            var provider = services.BuildServiceProvider();
+            _context = provider.GetRequiredService<ApollosLibraryIDPContext>();
+
+            _context.Database.EnsureCreated();
 
             services.AddTransient<IUserUnitOfWork>(p =>
             {
@@ -78,6 +79,11 @@ namespace ApollosLibrary.IDP.IntegrationTests
             {
                 return _configuration;
             }
+        }
+
+        public void Dispose()
+        {
+            _context.Dispose();
         }
     }
 }
