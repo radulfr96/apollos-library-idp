@@ -16,6 +16,7 @@ using Xunit;
 using ApollosLibrary.IDP.Domain.Model;
 using ApollosLibrary.IDP.Infrastructure.Interfaces;
 using ApollosLibrary.IDP.Application.User.Commands.UpdatePasswordCommand;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApollosLibrary.IDP.IntegrationTests
 {
@@ -60,7 +61,7 @@ namespace ApollosLibrary.IDP.IntegrationTests
             var password = new Faker().Random.AlphaNumeric(50);
 
             var hasher = new PasswordHasher<Domain.Model.User>();
-            var user = new Domain.Model.User()
+            var user = new User()
             {
                 CreatedBy = userID,
                 CreatedDate = DateTime.Parse("2021-01-02"),
@@ -72,6 +73,7 @@ namespace ApollosLibrary.IDP.IntegrationTests
             var oldPasswordHash = hasher.HashPassword(user, password);
             user.Password = oldPasswordHash;
 
+            var conn = _context.Database.GetDbConnection();
             _context.Users.Add(user);
             _context.SaveChanges();
 

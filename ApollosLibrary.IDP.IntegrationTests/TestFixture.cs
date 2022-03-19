@@ -41,12 +41,12 @@ namespace ApollosLibrary.IDP.IntegrationTests
 
             _configuration = new Configuration();
             services.AddHttpContextAccessor();
+            var connectionString = localConfig.GetSection("ConnectionString").Value;
+            var conn = connectionString.Replace("{UniqueId}", DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss"));
+
             services.AddDbContext<ApollosLibraryIDPContext>(opt =>
             {
-                var connectionString = localConfig.GetSection("ConnectionString").Value;
-                connectionString = connectionString.Replace("{UniqueId}", DateTime.Now.ToString("yyyy-MM-dd_THH-mm-ss-fffffffzzz"));
-
-                opt.UseSqlServer(connectionString);
+                opt.UseSqlServer(conn);
             });
 
             var provider = services.BuildServiceProvider();
@@ -71,14 +71,6 @@ namespace ApollosLibrary.IDP.IntegrationTests
             services.AddMediatR(typeof(DeleteUserCommandHandler).GetTypeInfo().Assembly);
 
             ServiceCollection = services;
-        }
-
-        public Configuration Configuration
-        {
-            get
-            {
-                return _configuration;
-            }
         }
 
         public void Dispose()

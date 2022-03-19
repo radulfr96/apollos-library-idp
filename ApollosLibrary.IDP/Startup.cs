@@ -51,7 +51,6 @@ namespace ApollosLibrary.IDP
             services.AddSingleton<IDateTimeService, DateTimeService>();
 
             services.AddDbContext<ApollosLibraryIDPContext>(options => options.UseSqlServer(Configuration.GetSection("ConnectionString").Value));
-            var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
             services.AddScoped<DbContext, ApollosLibraryIDPContext>();
 
             services.AddScoped<IUserService>(provider =>
