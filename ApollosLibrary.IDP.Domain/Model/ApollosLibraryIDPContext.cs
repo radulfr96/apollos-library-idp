@@ -43,7 +43,7 @@ namespace ApollosLibrary.IDP.Domain.Model
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var userId = Guid.NewGuid();
+            var userId = Guid.Parse("e7f12974-73dd-48d6-aa79-95fe1ded101e");
 
             modelBuilder.Entity<User>().HasData(new User()
             {
