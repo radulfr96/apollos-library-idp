@@ -26,6 +26,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using IdentityServer4;
+using ApollosLibrary.IDP.Filters;
 
 namespace ApollosLibrary.IDP
 {
@@ -52,6 +53,8 @@ namespace ApollosLibrary.IDP
 
             services.AddDbContext<ApollosLibraryIDPContext>(options => options.UseSqlServer(Configuration.GetSection("ConnectionString").Value));
             services.AddScoped<DbContext, ApollosLibraryIDPContext>();
+            services.AddScoped<ApiExceptionFilterAttribute>();
+            services.AddScoped<AdministratorFilterAttribute>();
 
             services.AddScoped<IUserService>(provider =>
             {

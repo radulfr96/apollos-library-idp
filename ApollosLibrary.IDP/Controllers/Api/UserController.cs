@@ -3,6 +3,7 @@ using ApollosLibrary.IDP.Application.User.Commands.UpdateSelfUserCommand;
 using ApollosLibrary.IDP.Application.User.Queries.CheckMyUsernameUnique;
 using ApollosLibrary.IDP.Application.User.Queries.GetUserQuery;
 using ApollosLibrary.IDP.Application.User.Queries.GetUsersQuery;
+using ApollosLibrary.IDP.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +30,7 @@ namespace ApollosLibrary.IDP.Controllers.Api
         /// Used to get users
         /// </summary>
         /// <returns>Response that indicates the result</returns>
+        [AdministratorFilter]
         [HttpPost("users")]
         public async Task<GetUsersQueryDto> GetUsers([FromBody] GetUsersQuery query)
         {
@@ -40,6 +42,7 @@ namespace ApollosLibrary.IDP.Controllers.Api
         /// </summary>
         /// <param name="id">the id of the user to be retreived</param>
         /// <returns>Response that indicates the result</returns>
+        [AdministratorFilter]
         [HttpGet("{id}")]
         public async Task<GetUserQueryDto> GetUser([FromRoute] Guid id)
         {
