@@ -16,6 +16,11 @@ namespace ApollosLibrary.IDP.UserRegistration
 
         [Required]
         [MaxLength(200)]
+        [Display(Name = "Username")]
+        public string Username { get; set; }
+
+        [Required]
+        [MaxLength(200)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }

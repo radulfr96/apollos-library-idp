@@ -11,6 +11,9 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using ApollosLibrary.IDP.Infrastructure.Interfaces;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Net.Mail;
+using System.Text;
 
 namespace ApollosLibrary.IDP.UserRegistration
 {
@@ -43,6 +46,14 @@ namespace ApollosLibrary.IDP.UserRegistration
                 return View(model);
             }
 
+            var existingUser = await _userService.GetUserByUsername(model.Username);
+
+            if (existingUser != null)
+            {
+                ModelState.AddModelError("username", "Username is not unique please try another");
+                return View(model);
+            }
+
             var userId = Guid.NewGuid();
 
             var user = new Domain.Model.User()
@@ -52,7 +63,7 @@ namespace ApollosLibrary.IDP.UserRegistration
                 IsActive = false,
                 Subject = Guid.NewGuid().ToString(),
                 UserId = userId,
-                Username = model.Email,
+                Username = model.Username,
                 UserClaims = new List<Domain.Model.UserClaim>()
                 {
                     new Domain.Model.UserClaim()
@@ -61,6 +72,12 @@ namespace ApollosLibrary.IDP.UserRegistration
                         Type = "sub",
                         Value = "UnpaidAccount",
                     },
+                    new Domain.Model.UserClaim()
+                    {
+                        UserClaimId = Guid.NewGuid(),
+                        Type = "emailaddress",
+                        Value = model.Email,
+                    }
                 },
             };
 
@@ -75,7 +92,20 @@ namespace ApollosLibrary.IDP.UserRegistration
 
             await _userService.AddUser(user, model.Password);
 
+            MailMessage message = new MailMessage("noreply@apolloslibrary.com", model.Email);
+
             var link = Url.ActionLink("ActivateUser", "UserRegistration", new { securityCode = user.SecurityCode });
+
+            string mailbody = $"Please click the following link to activate your account: <a href='/{link}'>{link}</a";
+            message.Subject = "My Library Password Reset";
+            message.Body = mailbody;
+            message.BodyEncoding = Encoding.UTF8;
+            message.IsBodyHtml = true;
+            SmtpClient client = new SmtpClient("127.0.0.1", 25); //smtp    
+            //client.EnableSsl = true;
+            client.UseDefaultCredentials = true;
+
+            client.Send(message);
 
             Debug.WriteLine(link);
 

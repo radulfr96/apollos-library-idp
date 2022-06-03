@@ -38,7 +38,6 @@ namespace ApollosLibrary.IDP.PasswordReset
 
             var securityCode = await _userService.InitiatePasswordResetRequest(model.Email);
 
-
             var link = $"{HttpContext.Request.Host.Host}{Url.Action("ResetPassword", "PasswordReset", new { securityCode })}";
 
             MailMessage message = new MailMessage("noreply@ApollosLibrary.com", model.Email);
