@@ -74,14 +74,7 @@ namespace ApollosLibrary.IDP.Domain.Model
                 },
                 new UserClaim()
                 {
-                    Type = "role",
-                    UserId = userId,
-                    Value = "freeaccount",
-                    UserClaimId = Guid.NewGuid(),
-                },
-                new UserClaim()
-                {
-                    Type = "emailaddress",
+                    Type = "email",
                     UserId = userId,
                     Value = "wados.russell70@gmail.com",
                     UserClaimId = Guid.NewGuid(),
@@ -140,6 +133,12 @@ namespace ApollosLibrary.IDP.Domain.Model
                 {
                     ApiResourceClaimId = 2,
                     Type = "username",
+                    ApiResourceId = 1,
+                },
+                new ApiResourceClaim()
+                {
+                    ApiResourceClaimId = 3,
+                    Type = "email",
                     ApiResourceId = 1,
                 }
             });

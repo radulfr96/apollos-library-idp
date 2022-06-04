@@ -4,6 +4,7 @@ using ApollosLibrary.IDP.Domain.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApollosLibrary.IDP.Domain.Migrations
 {
     [DbContext(typeof(ApollosLibraryIDPContext))]
-    partial class ApollosLibraryIDPContextModelSnapshot : ModelSnapshot
+    [Migration("20220604064134_UpdateEmailAddressScope")]
+    partial class UpdateEmailAddressScope
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

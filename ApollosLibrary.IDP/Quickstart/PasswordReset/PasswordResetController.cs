@@ -8,16 +8,19 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using ApollosLibrary.IDP.Infrastructure.Interfaces;
+using Microsoft.Extensions.Configuration;
 
 namespace ApollosLibrary.IDP.PasswordReset
 {
     public class PasswordResetController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IConfiguration _config;
 
-        public PasswordResetController(IUserService userService)
+        public PasswordResetController(IUserService userService, IConfiguration config)
         {
             _userService = userService;
+            _config = config;
         }
 
         [HttpGet]
@@ -40,10 +43,10 @@ namespace ApollosLibrary.IDP.PasswordReset
 
             var link = $"{HttpContext.Request.Host.Host}{Url.Action("ResetPassword", "PasswordReset", new { securityCode })}";
 
-            MailMessage message = new MailMessage("noreply@ApollosLibrary.com", model.Email);
+            MailMessage message = new MailMessage("noreply@apolloslibrary.com", model.Email);
 
             string mailbody = $"Please click the following link to reset your password: <a href='/{link}'>{link}</a";
-            message.Subject = "My Library Password Reset";
+            message.Subject = "Apollo's Library Password Reset";
             message.Body = mailbody;
             message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;
@@ -77,8 +80,10 @@ namespace ApollosLibrary.IDP.PasswordReset
 
             if (await _userService.SetPassword(model.SecurityCode, model.Password))
             {
+                var frontEndURL = _config.GetValue<string>("FrontEndURL");
+
                 ViewData["Message"] = "Your password was successfully changed.  " +
-                    "Navigate to your client application to log in.";
+                    "Click <a href=\"" + frontEndURL + "\">here<a/> to return to the homepage";
             }
             else
             {

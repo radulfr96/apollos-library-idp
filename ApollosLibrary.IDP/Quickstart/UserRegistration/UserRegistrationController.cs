@@ -14,16 +14,19 @@ using ApollosLibrary.IDP.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Net.Mail;
 using System.Text;
+using Microsoft.Extensions.Configuration;
 
 namespace ApollosLibrary.IDP.UserRegistration
 {
     public class UserRegistrationController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IConfiguration _config;
         private readonly IIdentityServerInteractionService _interactionService;
 
-        public UserRegistrationController(IUserService userService, IIdentityServerInteractionService interactionService)
+        public UserRegistrationController(IUserService userService, IIdentityServerInteractionService interactionService, IConfiguration config)
         {
+            _config = config;
             _userService = userService;
             _interactionService = interactionService;
         }
@@ -69,14 +72,14 @@ namespace ApollosLibrary.IDP.UserRegistration
                     new Domain.Model.UserClaim()
                     {
                         UserClaimId = Guid.NewGuid(),
-                        Type = "sub",
-                        Value = "UnpaidAccount",
+                        Type = "emailaddress",
+                        Value = model.Email,
                     },
                     new Domain.Model.UserClaim()
                     {
                         UserClaimId = Guid.NewGuid(),
-                        Type = "emailaddress",
-                        Value = model.Email,
+                        Type = "role",
+                        Value = "standarduser"
                     }
                 },
             };
@@ -107,8 +110,6 @@ namespace ApollosLibrary.IDP.UserRegistration
 
             client.Send(message);
 
-            Debug.WriteLine(link);
-
             return View("ActivationCodeSent");
         }
 
@@ -117,14 +118,15 @@ namespace ApollosLibrary.IDP.UserRegistration
         {
             if (await _userService.ActivateUser(securityCode))
             {
-                ViewData["Message"] = "Your account was successfully activated.  " +
-                    "Navigate to your client application to log in.";
+                ViewData["Message"] = "Your account was successfully activated.  ";
             }
             else
             {
                 ViewData["Message"] = "Your account couldn't be activated, " +
                     "please contact your administrator.";
             }
+
+            ViewBag.FrontEndURL = _config.GetValue<string>("FrontEndURL");
 
             return View();
         }
