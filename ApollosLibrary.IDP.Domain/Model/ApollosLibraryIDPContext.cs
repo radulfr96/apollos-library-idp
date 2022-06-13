@@ -74,7 +74,7 @@ namespace ApollosLibrary.IDP.Domain.Model
                 },
                 new UserClaim()
                 {
-                    Type = "email",
+                    Type = "emailaddress",
                     UserId = userId,
                     Value = "wados.russell70@gmail.com",
                     UserClaimId = Guid.NewGuid(),
