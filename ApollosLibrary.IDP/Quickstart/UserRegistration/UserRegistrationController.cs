@@ -57,6 +57,14 @@ namespace ApollosLibrary.IDP.UserRegistration
                 return View(model);
             }
 
+            existingUser = await _userService.GetUserByEmail(model.Email);
+
+            if (existingUser != null)
+            {
+                ModelState.AddModelError("email", "Email is not unique please try another");
+                return View(model);
+            }
+
             var userId = Guid.NewGuid();
 
             var user = new Domain.Model.User()

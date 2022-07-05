@@ -51,7 +51,7 @@ namespace ApollosLibrary.IDP.Infrastructure
             if (user == null)
                 return result;
 
-            if (!user.IsActive)
+            if ((!user.IsActive) || user.IsBanned)
                 return result;
 
             result = _passwordHasher.VerifyHashedPassword(user, user.Password, password) == PasswordVerificationResult.Success;

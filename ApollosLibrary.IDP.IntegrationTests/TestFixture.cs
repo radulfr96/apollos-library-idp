@@ -68,7 +68,7 @@ namespace ApollosLibrary.IDP.IntegrationTests
 
             services.AddHttpContextAccessor();
 
-            services.AddMediatR(typeof(DeleteUserCommandHandler).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(DeactivateUserCommandHandler).GetTypeInfo().Assembly);
 
             ServiceCollection = services;
         }

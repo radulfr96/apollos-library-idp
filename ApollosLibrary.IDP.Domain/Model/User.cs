@@ -14,6 +14,7 @@ namespace ApollosLibrary.IDP.Domain.Model
         public string Username { get; set; }
         public string Password { get; set; }
         public bool IsActive { get; set; }
+        public bool IsBanned { get; set; }
         public string SecurityCode { get; set; }
         public DateTime? SecurityCodeExpirationDate { get; set; }
         public DateTime CreatedDate { get; set; }

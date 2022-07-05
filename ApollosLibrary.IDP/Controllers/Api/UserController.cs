@@ -1,6 +1,9 @@
-﻿using ApollosLibrary.IDP.Application.User.Commands.UpdatePasswordCommand;
+﻿using ApollosLibrary.IDP.Application.User.Commands.BanUserCommand;
+using ApollosLibrary.IDP.Application.User.Commands.DeleteUserCommand;
+using ApollosLibrary.IDP.Application.User.Commands.UpdatePasswordCommand;
 using ApollosLibrary.IDP.Application.User.Commands.UpdateSelfUserCommand;
 using ApollosLibrary.IDP.Application.User.Queries.CheckMyUsernameUnique;
+using ApollosLibrary.IDP.Application.User.Queries.GetUsernameQuery;
 using ApollosLibrary.IDP.Application.User.Queries.GetUserQuery;
 using ApollosLibrary.IDP.Application.User.Queries.GetUsersQuery;
 using ApollosLibrary.IDP.Filters;
@@ -21,7 +24,7 @@ namespace ApollosLibrary.IDP.Controllers.Api
     {
         private readonly IMediator _mediator;
 
-        public UserController(IMediator mediator, IConfiguration configuration)
+        public UserController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -47,6 +50,51 @@ namespace ApollosLibrary.IDP.Controllers.Api
         public async Task<GetUserQueryDto> GetUser([FromRoute] Guid id)
         {
             return await _mediator.Send(new GetUserQuery() { UserId = id });
+        }
+
+        /// <summary>
+        /// Used to get a users username
+        /// </summary>
+        /// <param name="id">the id of the user to be retreived</param>
+        /// <returns>Response that indicates the result</returns>
+        [HttpGet("{id}/username")]
+        public async Task<GetUsernameQueryDto> GetUsername([FromRoute] Guid id)
+        {
+            return await _mediator.Send(new GetUsernameQuery() { UserId = id });
+        }
+
+        /// <summary>
+        /// Used to self deactivate
+        /// </summary>
+        /// <param name="id">the id of the user to be deactivated</param>
+        /// <returns>Response that indicates the result</returns>
+        [HttpDelete("")]
+        public async Task<DeactivateUserCommandDto> DeactivateSelf()
+        {
+            return await _mediator.Send(new DeactivateUserCommand() { SelfDeactive = true });
+        }
+
+        /// <summary>
+        /// Used to deactivate a user
+        /// </summary>
+        /// <param name="id">the id of the user to be deactivated</param>
+        /// <returns>Response that indicates the result</returns>
+        [HttpDelete("{id}")]
+        public async Task<DeactivateUserCommandDto> DeactivateUser([FromRoute] Guid id)
+        {
+            return await _mediator.Send(new DeactivateUserCommand() { UserId = id, SelfDeactive = false });
+        }
+
+        /// <summary>
+        /// Used to ban a specific user
+        /// </summary>
+        /// <param name="id">the id of the user to be banned</param>
+        /// <returns>Response that indicates the result</returns>
+        [AdministratorFilter]
+        [HttpPost("{id}/ban")]
+        public async Task<BanUserCommandDto> BanUser([FromRoute] Guid id)
+        {
+            return await _mediator.Send(new BanUserCommand() { UserId = id });
         }
 
         /// <summary>

@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApollosLibrary.IDP.Application.User.Commands.DeleteUserCommand
+namespace ApollosLibrary.IDP.Application.User.Commands.BanUserCommand
 {
-    public class DeleteUserCommandDto
+    public class BanUserCommandDto
     {
-
     }
 }

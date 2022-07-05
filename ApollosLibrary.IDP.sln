@@ -11,17 +11,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApollosLibrary.IDP.Applicat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApollosLibrary.IDP.Domain", "ApollosLibrary.IDP.Domain\ApollosLibrary.IDP.Domain.csproj", "{FCFE340D-9A31-4C13-ADD4-F073D552D7FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApollosLibrary.IDP.Application", "ApollosLibrary.IDP.Application\ApollosLibrary.IDP.Application.csproj", "{0AF70183-8450-42F0-B2B6-C36DD280EB4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApollosLibrary.IDP.Application", "ApollosLibrary.IDP.Application\ApollosLibrary.IDP.Application.csproj", "{0AF70183-8450-42F0-B2B6-C36DD280EB4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApollosLibrary.IDP.UnitOfWork.Contracts", "ApollosLibrary.IDP.UnitOfWork.Contracts\ApollosLibrary.IDP.UnitOfWork.Contracts.csproj", "{D838AA47-C720-4969-9A12-CE0F4608F5B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApollosLibrary.IDP.UnitOfWork.Contracts", "ApollosLibrary.IDP.UnitOfWork.Contracts\ApollosLibrary.IDP.UnitOfWork.Contracts.csproj", "{D838AA47-C720-4969-9A12-CE0F4608F5B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApollosLibrary.IDP.UnitOfWork", "ApollosLibrary.IDP.UnitOfWork\ApollosLibrary.IDP.UnitOfWork.csproj", "{A35345BE-E08D-4EE1-ACD7-29E5B64BC48D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApollosLibrary.IDP.UnitOfWork", "ApollosLibrary.IDP.UnitOfWork\ApollosLibrary.IDP.UnitOfWork.csproj", "{A35345BE-E08D-4EE1-ACD7-29E5B64BC48D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApollosLibrary.IDP.DataLayer.Contracts", "ApollosLibrary.IDP.Datalayer.Contracts\ApollosLibrary.IDP.DataLayer.Contracts.csproj", "{F2A0B85E-0BEC-4852-AB98-0A8B87BF45C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApollosLibrary.IDP.DataLayer.Contracts", "ApollosLibrary.IDP.Datalayer.Contracts\ApollosLibrary.IDP.DataLayer.Contracts.csproj", "{F2A0B85E-0BEC-4852-AB98-0A8B87BF45C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApollosLibrary.IDP.DataLayer", "ApollosLibrary.IDP.DataLayer\ApollosLibrary.IDP.DataLayer.csproj", "{F859A4A3-4BA5-4863-B039-EFD83570BA72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApollosLibrary.IDP.DataLayer", "ApollosLibrary.IDP.DataLayer\ApollosLibrary.IDP.DataLayer.csproj", "{F859A4A3-4BA5-4863-B039-EFD83570BA72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApollosLibrary.IDP.Infrastructure", "ApollosLibrary.IDP.Infrastructure\ApollosLibrary.IDP.Infrastructure.csproj", "{A1E539AD-F8B7-4C6C-B4BA-BF0188363E42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApollosLibrary.IDP.Infrastructure", "ApollosLibrary.IDP.Infrastructure\ApollosLibrary.IDP.Infrastructure.csproj", "{A1E539AD-F8B7-4C6C-B4BA-BF0188363E42}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
