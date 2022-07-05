@@ -79,6 +79,7 @@ namespace ApollosLibrary.IDP.Controllers.Api
         /// </summary>
         /// <param name="id">the id of the user to be deactivated</param>
         /// <returns>Response that indicates the result</returns>
+        [AdministratorFilter]
         [HttpDelete("{id}")]
         public async Task<DeactivateUserCommandDto> DeactivateUser([FromRoute] Guid id)
         {
@@ -90,7 +91,7 @@ namespace ApollosLibrary.IDP.Controllers.Api
         /// </summary>
         /// <param name="id">the id of the user to be banned</param>
         /// <returns>Response that indicates the result</returns>
-        [AdministratorFilter]
+        [ModeratorFilter]
         [HttpPost("{id}/ban")]
         public async Task<BanUserCommandDto> BanUser([FromRoute] Guid id)
         {

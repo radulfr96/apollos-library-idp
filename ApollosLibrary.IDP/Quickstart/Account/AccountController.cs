@@ -116,7 +116,7 @@ namespace IdentityServerHost.Quickstart.UI
                 if (await _userService.ValidateCredentials(model.Email, model.Password))
                 {
                     var user = await _userService.GetUserByEmail(model.Email);
-                    await _events.RaiseAsync(new UserLoginSuccessEvent(user.Username, user.Subject, user.Username, clientId: context?.Client.ClientId));
+                    await _events.RaiseAsync(new UserLoginSuccessEvent(user.Username, user.UserId.ToString(), user.Username, clientId: context?.Client.ClientId));
 
                     // issue authentication cookie with subject ID and username
                     var isuser = new IdentityServerUser(user.Subject)

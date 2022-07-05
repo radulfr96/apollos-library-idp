@@ -30,6 +30,7 @@ namespace ApollosLibrary.IDP.Application.User.Queries.GetUserQuery
             }
 
             response.IsActive = user.IsActive ? "Active" : "Inactive";
+            response.IsBanned = user.IsBanned;
             response.UserID = user.UserId;
             response.Username = user.Username;
             response.UserRoles = user.UserClaims.Where(u => u.Type == "role").Select(u => u.Value).ToList();

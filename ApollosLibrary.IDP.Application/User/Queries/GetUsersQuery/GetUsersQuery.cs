@@ -40,6 +40,8 @@ namespace ApollosLibrary.IDP.Application.User.Queries.GetUsersQuery
                 UserID = u.UserId,
                 IsActive = u.IsActive ? "Active" : "Inactive",
                 Username = u.Username,
+                IsBanned = u.IsBanned ? "Yes" : "No",
+                Email = u.UserClaims.FirstOrDefault(c => c.Type == "emailaddress")?.Value,
             }).ToList();
 
             return response;

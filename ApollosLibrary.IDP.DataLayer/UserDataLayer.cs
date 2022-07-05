@@ -32,19 +32,9 @@ namespace ApollosLibrary.IDP.DataLayer
 
         public async Task<List<Domain.Model.User>> GetUsers()
         {
-            return await (
-                from u in _context.Users
-                select new Domain.Model.User()
-                {
-                    CreatedBy = u.CreatedBy,
-                    CreatedDate = u.CreatedDate,
-                    IsActive = u.IsActive,
-                    ModifiedBy = u.ModifiedBy,
-                    ModifiedDate = u.ModifiedDate,
-                    Password = u.Password,
-                    UserId = u.UserId,
-                    Username = u.Username,
-                }).ToListAsync();
+            return await _context.Users
+                    .Include(u => u.UserClaims)
+                    .ToListAsync();
         }
 
         public async Task<Domain.Model.User> GetUserBySubject(string subject)
