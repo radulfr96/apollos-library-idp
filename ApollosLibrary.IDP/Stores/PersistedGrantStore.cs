@@ -3,6 +3,7 @@ using AutoMapper;
 using IdentityServer4.Models;
 using IdentityServer4.Stores;
 using Microsoft.EntityFrameworkCore;
+using NodaTime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,11 +68,11 @@ namespace ApollosLibrary.IDP.Stores
             await _context.AddAsync(new Domain.Model.PersistedGrant()
             {
                 ClientId = grant.ClientId,
-                ConsumedTime = grant.ConsumedTime,
-                CreationTime = grant.CreationTime,
+                ConsumedTime = LocalDateTime.FromDateTime(grant.ConsumedTime.Value),
+                CreationTime = LocalDateTime.FromDateTime(grant.CreationTime),
                 Data = grant.Data,
                 Description = grant.Description,
-                Expiration = grant.Expiration,
+                Expiration = LocalDateTime.FromDateTime(grant.Expiration.Value),
                 PersistedGrantKey = grant.Key,
                 SessionId = grant.SessionId,
                 SubjectId = grant.SubjectId,

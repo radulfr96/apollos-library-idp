@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NodaTime;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -16,10 +17,10 @@ namespace ApollosLibrary.IDP.Domain.Model
         public bool IsActive { get; set; }
         public bool IsBanned { get; set; }
         public string SecurityCode { get; set; }
-        public DateTime? SecurityCodeExpirationDate { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public LocalDateTime? SecurityCodeExpirationDate { get; set; }
+        public LocalDateTime CreatedDate { get; set; }
         public Guid CreatedBy { get; set; }
-        public DateTime? ModifiedDate { get; set; }
+        public LocalDateTime? ModifiedDate { get; set; }
         public Guid? ModifiedBy { get; set; }
 
         public ICollection<UserClaim> UserClaims { get; set; }

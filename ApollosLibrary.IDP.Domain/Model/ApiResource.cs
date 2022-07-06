@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NodaTime;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -16,9 +17,9 @@ namespace ApollosLibrary.IDP.Domain.Model
         public string Description { get; set; }
         public string AllowedAccessTokenSigningAlgorithms { get; set; }
         public bool ShowInDiscoveryDocument { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime? Updated { get; set; }
-        public DateTime? LastAccessed { get; set; }
+        public LocalDateTime Created { get; set; }
+        public LocalDateTime? Updated { get; set; }
+        public LocalDateTime? LastAccessed { get; set; }
         public bool NonEditable { get; set; }
 
         public ICollection<ApiResourceClaim> ApiResourceClaims { get; set; }

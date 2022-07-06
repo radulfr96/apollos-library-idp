@@ -11,6 +11,7 @@ using ApollosLibrary.IDP.Infrastructure.Interfaces;
 using ApollosLibrary.IDP.UnitOfWork.Contracts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
+using NodaTime;
 
 namespace ApollosLibrary.IDP.Infrastructure
 {
@@ -131,7 +132,7 @@ namespace ApollosLibrary.IDP.Infrastructure
                 user.SecurityCode = Convert.ToBase64String(securityCodeData);
             }
 
-            user.SecurityCodeExpirationDate = DateTime.Now.AddHours(1);
+            user.SecurityCodeExpirationDate = LocalDateTime.FromDateTime(DateTime.Now.AddHours(1));
 
             await _unitOfWork.Save();
             return user.SecurityCode;

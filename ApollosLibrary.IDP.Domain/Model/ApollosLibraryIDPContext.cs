@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NodaTime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,7 +49,7 @@ namespace ApollosLibrary.IDP.Domain.Model
             modelBuilder.Entity<User>().HasData(new User()
             {
                 CreatedBy = userId,
-                CreatedDate = DateTime.Now,
+                CreatedDate = LocalDateTime.FromDateTime(DateTime.Now),
                 IsActive = true,
                 Password = "AQAAAAEAACcQAAAAECY64tCZ5CSbcXzOp4NE6XAr1TB9wQ1zgMv6Sa49QGTmEftnFXzPMsBH+NB1cu5brw==",
                 Subject = Guid.NewGuid().ToString(),
@@ -87,7 +88,7 @@ namespace ApollosLibrary.IDP.Domain.Model
                 {
                     AllowedAccessTokenSigningAlgorithms = null,
                     ApiResourceId = 1,
-                    Created = DateTime.Now,
+                    Created = LocalDateTime.FromDateTime(DateTime.Now),
                     Description = "Open ID",
                     DisplayName = "Open ID",
                     Enabled = true,
@@ -99,7 +100,7 @@ namespace ApollosLibrary.IDP.Domain.Model
                 {
                     AllowedAccessTokenSigningAlgorithms = null,
                     ApiResourceId = 2,
-                    Created = DateTime.Now,
+                    Created = LocalDateTime.FromDateTime(DateTime.Now),
                     Description = "Apollo's Library Website",
                     DisplayName = "Apollo's Library Website",
                     Enabled = true,
@@ -111,7 +112,7 @@ namespace ApollosLibrary.IDP.Domain.Model
                 {
                     AllowedAccessTokenSigningAlgorithms = null,
                     ApiResourceId = 3,
-                    Created = DateTime.Now,
+                    Created = LocalDateTime.FromDateTime(DateTime.Now),
                     Description = "API in the IDP app to manage users",
                     DisplayName = "User API",
                     Enabled = true,
@@ -185,7 +186,7 @@ namespace ApollosLibrary.IDP.Domain.Model
                 ClientIdentifier = "apolloslibrarywebapp",
                 ClientName = "Apollo's Library Web App",
                 ClientUri = null,
-                Created = DateTime.Now,
+                Created = LocalDateTime.FromDateTime(DateTime.Now),
                 Description = "Apollo's Library Web App",
                 DeviceCodeLifetime = 6000,
                 Enabled = true,
@@ -303,7 +304,7 @@ namespace ApollosLibrary.IDP.Domain.Model
                 new ClientSecret()
                 {
                     ClientSecretId = 1,
-                    Created = DateTime.Now,
+                    Created = LocalDateTime.FromDateTime(DateTime.Now),
                     Description = "apolloslibrarywebsite",
                     Expiration = null,
                     Type = "SharedSecret",
@@ -323,7 +324,7 @@ namespace ApollosLibrary.IDP.Domain.Model
             {
                 new IdentityResource()
                 {
-                    Created = DateTime.Now,
+                    Created = LocalDateTime.FromDateTime(DateTime.Now),
                     Description = "openid",
                     DisplayName = "Opend ID",
                     Emphasize = false,
@@ -336,7 +337,7 @@ namespace ApollosLibrary.IDP.Domain.Model
                 },
                 new IdentityResource()
                 {
-                    Created = DateTime.Now,
+                    Created = LocalDateTime.FromDateTime(DateTime.Now),
                     Description = "User claims",
                     DisplayName = "User Claims",
                     Emphasize = false,
@@ -349,7 +350,7 @@ namespace ApollosLibrary.IDP.Domain.Model
                 },
                 new IdentityResource()
                 {
-                    Created = DateTime.Now,
+                    Created = LocalDateTime.FromDateTime(DateTime.Now),
                     Description = "User Profile",
                     DisplayName = "User Profile",
                     Emphasize = false,
@@ -362,7 +363,7 @@ namespace ApollosLibrary.IDP.Domain.Model
                 },
                 new IdentityResource()
                 {
-                    Created = DateTime.Now,
+                    Created = LocalDateTime.FromDateTime(DateTime.Now),
                     Description = "Username",
                     DisplayName = "Username",
                     Emphasize = false,
@@ -375,7 +376,7 @@ namespace ApollosLibrary.IDP.Domain.Model
                 },
                 new IdentityResource()
                 {
-                    Created = DateTime.Now,
+                    Created = LocalDateTime.FromDateTime(DateTime.Now),
                     Description = "User Role",
                     DisplayName = "User Role",
                     Emphasize = false,
@@ -388,7 +389,7 @@ namespace ApollosLibrary.IDP.Domain.Model
                 },
                 new IdentityResource()
                 {
-                    Created = DateTime.Now,
+                    Created = LocalDateTime.FromDateTime(DateTime.Now),
                     Description = "User Email",
                     DisplayName = "User Email",
                     Emphasize = false,

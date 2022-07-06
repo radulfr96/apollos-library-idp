@@ -46,7 +46,7 @@ namespace ApollosLibrary.IDP.IntegrationTests
 
             services.AddDbContext<ApollosLibraryIDPContext>(opt =>
             {
-                opt.UseSqlServer(conn);
+                opt.UseNpgsql(conn, o => o.UseNodaTime());
             });
 
             var provider = services.BuildServiceProvider();

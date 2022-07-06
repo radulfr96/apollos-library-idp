@@ -10,7 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
 using ApollosLibrary.IDP.Services;
 using ApollosLibrary.IDP.Stores;
 using ApollosLibrary.IDP.UnitOfWork;
@@ -51,8 +50,7 @@ namespace ApollosLibrary.IDP
             services.AddMediatR(typeof(GetUserQuery).GetTypeInfo().Assembly);
             services.AddSingleton<IDateTimeService, DateTimeService>();
 
-            services.AddDbContext<ApollosLibraryIDPContext>(options => options.UseSqlServer(Configuration.GetSection("ConnectionString").Value));
-            services.AddScoped<DbContext, ApollosLibraryIDPContext>();
+            services.AddDbContext<ApollosLibraryIDPContext>(options => options.UseNpgsql(Configuration.GetSection("ConnectionString").Value, o => o.UseNodaTime()));
             services.AddScoped<ApiExceptionFilterAttribute>();
             services.AddScoped<AdministratorFilterAttribute>();
 

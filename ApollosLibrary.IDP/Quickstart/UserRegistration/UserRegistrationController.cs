@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Net.Mail;
 using System.Text;
 using Microsoft.Extensions.Configuration;
+using NodaTime;
 
 namespace ApollosLibrary.IDP.UserRegistration
 {
@@ -70,7 +71,7 @@ namespace ApollosLibrary.IDP.UserRegistration
             var user = new Domain.Model.User()
             {
                 CreatedBy = userId,
-                CreatedDate = DateTime.Now,
+                CreatedDate = LocalDateTime.FromDateTime(DateTime.Now),
                 IsActive = false,
                 Subject = Guid.NewGuid().ToString(),
                 UserId = userId,
@@ -99,7 +100,7 @@ namespace ApollosLibrary.IDP.UserRegistration
                 user.SecurityCode = Convert.ToBase64String(codeData);
             }
 
-            user.SecurityCodeExpirationDate = DateTime.Now.AddHours(1);
+            user.SecurityCodeExpirationDate = LocalDateTime.FromDateTime(DateTime.Now.AddHours(1));
 
             await _userService.AddUser(user, model.Password);
 

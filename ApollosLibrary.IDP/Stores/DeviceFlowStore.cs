@@ -4,6 +4,7 @@ using IdentityServer4.Models;
 using IdentityServer4.Stores;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using NodaTime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,11 +55,11 @@ namespace ApollosLibrary.IDP.Stores
             var entity = new Domain.Model.DeviceCode()
             {
                 ClientId = data.ClientId,
-                CreationTime = data.CreationTime,
+                CreationTime = LocalDateTime.FromDateTime(data.CreationTime),
                 Data = JsonConvert.SerializeObject(data),
                 Description = data.Description,
                 DeviceCodeId = deviceCode,
-                Expiration = data.CreationTime.AddYears(1),
+                Expiration = LocalDateTime.FromDateTime(data.CreationTime.AddYears(1)),
                 SessionId = data.SessionId,
                 UserCode = userCode,
                 SubjectId = data.Subject.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Sid).Value,
@@ -72,10 +73,10 @@ namespace ApollosLibrary.IDP.Stores
         {
             var entity = await _context.DeviceCodes.FirstOrDefaultAsync(c => c.UserCode == userCode);
             entity.ClientId = data.ClientId;
-            entity.CreationTime = data.CreationTime;
+            entity.CreationTime = LocalDateTime.FromDateTime(data.CreationTime);
             entity.Data = JsonConvert.SerializeObject(data);
             entity.Description = data.Description;
-            entity.Expiration = data.CreationTime.AddYears(1);
+            entity.Expiration = LocalDateTime.FromDateTime(data.CreationTime.AddYears(1));
             entity.SessionId = data.SessionId;
             entity.UserCode = userCode;
             entity.SubjectId = data.Subject.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Sid).Value;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NodaTime;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace ApollosLibrary.IDP.Infrastructure.Interfaces
 {
     public interface IDateTimeService
     {
-        DateTime Now { get; }
+        LocalDateTime Now { get; }
     }
 }

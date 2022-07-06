@@ -8,6 +8,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
+using NodaTime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -95,7 +96,7 @@ namespace ApollosLibrary.IDP.Application.UnitTests
             var user = new Domain.Model.User()
             {
                 CreatedBy = Guid.NewGuid(),
-                CreatedDate = DateTime.Parse("2021-01-02"),
+                CreatedDate = LocalDateTime.FromDateTime(DateTime.Parse("2021-01-02")),
                 IsActive = true,
                 Subject = Guid.NewGuid().ToString(),
                 UserId = Guid.NewGuid(),

@@ -1,5 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using NodaTime;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -13,18 +15,18 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "ApiResources",
                 columns: table => new
                 {
-                    ApiResourceId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Enabled = table.Column<bool>(type: "bit", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AllowedAccessTokenSigningAlgorithms = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ShowInDiscoveryDocument = table.Column<bool>(type: "bit", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastAccessed = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    NonEditable = table.Column<bool>(type: "bit", nullable: false)
+                    ApiResourceId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Enabled = table.Column<bool>(type: "boolean", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    DisplayName = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    AllowedAccessTokenSigningAlgorithms = table.Column<string>(type: "text", nullable: true),
+                    ShowInDiscoveryDocument = table.Column<bool>(type: "boolean", nullable: false),
+                    Created = table.Column<LocalDateTime>(type: "timestamp without time zone", nullable: false),
+                    Updated = table.Column<LocalDateTime>(type: "timestamp without time zone", nullable: true),
+                    LastAccessed = table.Column<LocalDateTime>(type: "timestamp without time zone", nullable: true),
+                    NonEditable = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -35,15 +37,15 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "ApiScopes",
                 columns: table => new
                 {
-                    ApiScopeId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Enabled = table.Column<bool>(type: "bit", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Required = table.Column<bool>(type: "bit", nullable: false),
-                    Emphasize = table.Column<bool>(type: "bit", nullable: false),
-                    ShowInDiscoveryDocument = table.Column<bool>(type: "bit", nullable: false)
+                    ApiScopeId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Enabled = table.Column<bool>(type: "boolean", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    DisplayName = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    Required = table.Column<bool>(type: "boolean", nullable: false),
+                    Emphasize = table.Column<bool>(type: "boolean", nullable: false),
+                    ShowInDiscoveryDocument = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,51 +56,51 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "Clients",
                 columns: table => new
                 {
-                    ClientId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Enabled = table.Column<bool>(type: "bit", nullable: false),
-                    ClientIdentifier = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProtocolType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RequireClientSecret = table.Column<bool>(type: "bit", nullable: false),
-                    ClientName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClientUri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LogoUri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RequireConsent = table.Column<bool>(type: "bit", nullable: false),
-                    AllowRememberConsent = table.Column<bool>(type: "bit", nullable: false),
-                    AlwaysIncludeUserClaimsInIdToken = table.Column<bool>(type: "bit", nullable: false),
-                    RequirePkce = table.Column<bool>(type: "bit", nullable: false),
-                    AllowPlainTextPkce = table.Column<bool>(type: "bit", nullable: false),
-                    RequireRequestObject = table.Column<bool>(type: "bit", nullable: false),
-                    AllowAccessTokensViaBrowser = table.Column<bool>(type: "bit", nullable: false),
-                    FrontChannelLogoutUri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FrontChannelLogoutSessionRequired = table.Column<bool>(type: "bit", nullable: false),
-                    BackChannelLogoutUri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BackChannelLogoutSessionRequired = table.Column<bool>(type: "bit", nullable: false),
-                    AllowOfflineAccess = table.Column<bool>(type: "bit", nullable: false),
-                    IdentityTokenLifetime = table.Column<int>(type: "int", nullable: false),
-                    AllowedIdentityTokenSigningAlgorithms = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AccessTokenLifetime = table.Column<int>(type: "int", nullable: false),
-                    AuthorizationCodeLifetime = table.Column<int>(type: "int", nullable: false),
-                    ConsentLifetime = table.Column<int>(type: "int", nullable: true),
-                    AbsoluteRefreshTokenLifetime = table.Column<int>(type: "int", nullable: false),
-                    SlidingRefreshTokenLifetime = table.Column<int>(type: "int", nullable: false),
-                    RefreshTokenUsage = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdateAccessTokenClaimsOnRefresh = table.Column<bool>(type: "bit", nullable: false),
-                    RefreshTokenExpiration = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AccessTokenType = table.Column<int>(type: "int", nullable: false),
-                    EnableLocalLogin = table.Column<bool>(type: "bit", nullable: false),
-                    IncludeJwtId = table.Column<bool>(type: "bit", nullable: false),
-                    AlwaysSendClientClaims = table.Column<bool>(type: "bit", nullable: false),
-                    ClientClaimsPrefix = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PairWiseSubjectSalt = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastAccessed = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UserSsoLifetime = table.Column<int>(type: "int", nullable: true),
-                    UserCodeType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceCodeLifetime = table.Column<int>(type: "int", nullable: false),
-                    NonEditable = table.Column<bool>(type: "bit", nullable: false)
+                    ClientId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Enabled = table.Column<bool>(type: "boolean", nullable: false),
+                    ClientIdentifier = table.Column<string>(type: "text", nullable: true),
+                    ProtocolType = table.Column<string>(type: "text", nullable: true),
+                    RequireClientSecret = table.Column<bool>(type: "boolean", nullable: false),
+                    ClientName = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    ClientUri = table.Column<string>(type: "text", nullable: true),
+                    LogoUri = table.Column<string>(type: "text", nullable: true),
+                    RequireConsent = table.Column<bool>(type: "boolean", nullable: false),
+                    AllowRememberConsent = table.Column<bool>(type: "boolean", nullable: false),
+                    AlwaysIncludeUserClaimsInIdToken = table.Column<bool>(type: "boolean", nullable: false),
+                    RequirePkce = table.Column<bool>(type: "boolean", nullable: false),
+                    AllowPlainTextPkce = table.Column<bool>(type: "boolean", nullable: false),
+                    RequireRequestObject = table.Column<bool>(type: "boolean", nullable: false),
+                    AllowAccessTokensViaBrowser = table.Column<bool>(type: "boolean", nullable: false),
+                    FrontChannelLogoutUri = table.Column<string>(type: "text", nullable: true),
+                    FrontChannelLogoutSessionRequired = table.Column<bool>(type: "boolean", nullable: false),
+                    BackChannelLogoutUri = table.Column<string>(type: "text", nullable: true),
+                    BackChannelLogoutSessionRequired = table.Column<bool>(type: "boolean", nullable: false),
+                    AllowOfflineAccess = table.Column<bool>(type: "boolean", nullable: false),
+                    IdentityTokenLifetime = table.Column<int>(type: "integer", nullable: false),
+                    AllowedIdentityTokenSigningAlgorithms = table.Column<string>(type: "text", nullable: true),
+                    AccessTokenLifetime = table.Column<int>(type: "integer", nullable: false),
+                    AuthorizationCodeLifetime = table.Column<int>(type: "integer", nullable: false),
+                    ConsentLifetime = table.Column<int>(type: "integer", nullable: true),
+                    AbsoluteRefreshTokenLifetime = table.Column<int>(type: "integer", nullable: false),
+                    SlidingRefreshTokenLifetime = table.Column<int>(type: "integer", nullable: false),
+                    RefreshTokenUsage = table.Column<string>(type: "text", nullable: true),
+                    UpdateAccessTokenClaimsOnRefresh = table.Column<bool>(type: "boolean", nullable: false),
+                    RefreshTokenExpiration = table.Column<string>(type: "text", nullable: true),
+                    AccessTokenType = table.Column<int>(type: "integer", nullable: false),
+                    EnableLocalLogin = table.Column<bool>(type: "boolean", nullable: false),
+                    IncludeJwtId = table.Column<bool>(type: "boolean", nullable: false),
+                    AlwaysSendClientClaims = table.Column<bool>(type: "boolean", nullable: false),
+                    ClientClaimsPrefix = table.Column<string>(type: "text", nullable: true),
+                    PairWiseSubjectSalt = table.Column<string>(type: "text", nullable: true),
+                    Created = table.Column<LocalDateTime>(type: "timestamp without time zone", nullable: false),
+                    Updated = table.Column<LocalDateTime>(type: "timestamp without time zone", nullable: true),
+                    LastAccessed = table.Column<LocalDateTime>(type: "timestamp without time zone", nullable: true),
+                    UserSsoLifetime = table.Column<int>(type: "integer", nullable: true),
+                    UserCodeType = table.Column<string>(type: "text", nullable: true),
+                    DeviceCodeLifetime = table.Column<int>(type: "integer", nullable: false),
+                    NonEditable = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -109,15 +111,15 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "DeviceCodes",
                 columns: table => new
                 {
-                    DeviceCodeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SubjectId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SessionId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClientId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Expiration = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Data = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    DeviceCodeId = table.Column<string>(type: "text", nullable: false),
+                    UserCode = table.Column<string>(type: "text", nullable: true),
+                    SubjectId = table.Column<string>(type: "text", nullable: true),
+                    SessionId = table.Column<string>(type: "text", nullable: true),
+                    ClientId = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    CreationTime = table.Column<LocalDateTime>(type: "timestamp without time zone", nullable: false),
+                    Expiration = table.Column<LocalDateTime>(type: "timestamp without time zone", nullable: false),
+                    Data = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -128,18 +130,18 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "IdentityResources",
                 columns: table => new
                 {
-                    IdentityResourceId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Enabled = table.Column<bool>(type: "bit", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Required = table.Column<bool>(type: "bit", nullable: false),
-                    Emphasize = table.Column<bool>(type: "bit", nullable: false),
-                    ShowInDiscoveryDocument = table.Column<bool>(type: "bit", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    NonEditable = table.Column<bool>(type: "bit", nullable: false)
+                    IdentityResourceId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Enabled = table.Column<bool>(type: "boolean", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    DisplayName = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    Required = table.Column<bool>(type: "boolean", nullable: false),
+                    Emphasize = table.Column<bool>(type: "boolean", nullable: false),
+                    ShowInDiscoveryDocument = table.Column<bool>(type: "boolean", nullable: false),
+                    Created = table.Column<LocalDateTime>(type: "timestamp without time zone", nullable: false),
+                    Updated = table.Column<LocalDateTime>(type: "timestamp without time zone", nullable: true),
+                    NonEditable = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -150,16 +152,16 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "PersistedGrants",
                 columns: table => new
                 {
-                    PersistedGrantKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SubjectId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SessionId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClientId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Expiration = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ConsumedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Data = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    PersistedGrantKey = table.Column<string>(type: "text", nullable: false),
+                    Type = table.Column<string>(type: "text", nullable: true),
+                    SubjectId = table.Column<string>(type: "text", nullable: true),
+                    SessionId = table.Column<string>(type: "text", nullable: true),
+                    ClientId = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    CreationTime = table.Column<LocalDateTime>(type: "timestamp without time zone", nullable: false),
+                    Expiration = table.Column<LocalDateTime>(type: "timestamp without time zone", nullable: true),
+                    ConsumedTime = table.Column<LocalDateTime>(type: "timestamp without time zone", nullable: true),
+                    Data = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -170,17 +172,18 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Subject = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    SecurityCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityCodeExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Subject = table.Column<string>(type: "text", nullable: true),
+                    Username = table.Column<string>(type: "text", nullable: true),
+                    Password = table.Column<string>(type: "text", nullable: true),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    IsBanned = table.Column<bool>(type: "boolean", nullable: false),
+                    SecurityCode = table.Column<string>(type: "text", nullable: true),
+                    SecurityCodeExpirationDate = table.Column<LocalDateTime>(type: "timestamp without time zone", nullable: true),
+                    CreatedDate = table.Column<LocalDateTime>(type: "timestamp without time zone", nullable: false),
+                    CreatedBy = table.Column<Guid>(type: "uuid", nullable: false),
+                    ModifiedDate = table.Column<LocalDateTime>(type: "timestamp without time zone", nullable: true),
+                    ModifiedBy = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -191,10 +194,10 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "ApiResourceClaims",
                 columns: table => new
                 {
-                    ApiResourceClaimId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ApiResourceId = table.Column<int>(type: "int", nullable: false)
+                    ApiResourceClaimId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Type = table.Column<string>(type: "text", nullable: true),
+                    ApiResourceId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -211,11 +214,11 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "ApiResourceProperties",
                 columns: table => new
                 {
-                    ApiResourcePropertyId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Key = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ApiResourceId = table.Column<int>(type: "int", nullable: false)
+                    ApiResourcePropertyId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Key = table.Column<string>(type: "text", nullable: true),
+                    Value = table.Column<string>(type: "text", nullable: true),
+                    ApiResourceId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -232,10 +235,10 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "ApiResourceScopes",
                 columns: table => new
                 {
-                    ApiResourceScopeId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Scope = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ApiResourceId = table.Column<int>(type: "int", nullable: false)
+                    ApiResourceScopeId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Scope = table.Column<string>(type: "text", nullable: true),
+                    ApiResourceId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -252,14 +255,14 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "ApiResourceSecrets",
                 columns: table => new
                 {
-                    ApiResourceSecretId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Expiration = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ApiResourceId = table.Column<int>(type: "int", nullable: false)
+                    ApiResourceSecretId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    Value = table.Column<string>(type: "text", nullable: true),
+                    Expiration = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Type = table.Column<string>(type: "text", nullable: true),
+                    Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ApiResourceId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -276,10 +279,10 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "ApiScopeClaims",
                 columns: table => new
                 {
-                    ApiScopeClaimId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ScopeId = table.Column<int>(type: "int", nullable: false)
+                    ApiScopeClaimId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Type = table.Column<string>(type: "text", nullable: true),
+                    ScopeId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -296,11 +299,11 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "ApiScopeProperties",
                 columns: table => new
                 {
-                    ApiScopePropertyId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Key = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ScopeId = table.Column<int>(type: "int", nullable: false)
+                    ApiScopePropertyId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Key = table.Column<string>(type: "text", nullable: true),
+                    Value = table.Column<string>(type: "text", nullable: true),
+                    ScopeId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -317,11 +320,11 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "ClientClaims",
                 columns: table => new
                 {
-                    ClientClaimId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClientId = table.Column<int>(type: "int", nullable: false)
+                    ClientClaimId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Type = table.Column<string>(type: "text", nullable: true),
+                    Value = table.Column<string>(type: "text", nullable: true),
+                    ClientId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -338,10 +341,10 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "ClientCorsOrigins",
                 columns: table => new
                 {
-                    ClientCorsOriginId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Origin = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClientId = table.Column<int>(type: "int", nullable: false)
+                    ClientCorsOriginId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Origin = table.Column<string>(type: "text", nullable: true),
+                    ClientId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -358,10 +361,10 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "ClientGrantTypes",
                 columns: table => new
                 {
-                    ClientGrantTypeId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    GrantType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClientId = table.Column<int>(type: "int", nullable: false)
+                    ClientGrantTypeId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    GrantType = table.Column<string>(type: "text", nullable: true),
+                    ClientId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -378,10 +381,10 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "ClientIdPrestrictions",
                 columns: table => new
                 {
-                    ClientIdPrestrictionId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Provider = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClientId = table.Column<int>(type: "int", nullable: false)
+                    ClientIdPrestrictionId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Provider = table.Column<string>(type: "text", nullable: true),
+                    ClientId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -398,10 +401,10 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "ClientPostLogoutRedirectUris",
                 columns: table => new
                 {
-                    ClientPostLogoutRedirectUriId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PostLogoutRedirectUri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClientId = table.Column<int>(type: "int", nullable: false)
+                    ClientPostLogoutRedirectUriId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PostLogoutRedirectUri = table.Column<string>(type: "text", nullable: true),
+                    ClientId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -418,11 +421,11 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "ClientProperties",
                 columns: table => new
                 {
-                    ClientPropertyId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Key = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClientId = table.Column<int>(type: "int", nullable: false)
+                    ClientPropertyId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Key = table.Column<string>(type: "text", nullable: true),
+                    Value = table.Column<string>(type: "text", nullable: true),
+                    ClientId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -439,10 +442,10 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "ClientRedirectUris",
                 columns: table => new
                 {
-                    ClientRedirectUriId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RedirectUri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClientId = table.Column<int>(type: "int", nullable: false)
+                    ClientRedirectUriId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    RedirectUri = table.Column<string>(type: "text", nullable: true),
+                    ClientId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -459,10 +462,10 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "ClientScopes",
                 columns: table => new
                 {
-                    ClientScopeId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Scope = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClientId = table.Column<int>(type: "int", nullable: false)
+                    ClientScopeId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Scope = table.Column<string>(type: "text", nullable: true),
+                    ClientId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -479,14 +482,14 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "ClientSecrets",
                 columns: table => new
                 {
-                    ClientSecretId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Expiration = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ClientId = table.Column<int>(type: "int", nullable: false)
+                    ClientSecretId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    Value = table.Column<string>(type: "text", nullable: true),
+                    Expiration = table.Column<LocalDateTime>(type: "timestamp without time zone", nullable: true),
+                    Type = table.Column<string>(type: "text", nullable: true),
+                    Created = table.Column<LocalDateTime>(type: "timestamp without time zone", nullable: false),
+                    ClientId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -503,10 +506,10 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "IdentityResourceClaims",
                 columns: table => new
                 {
-                    IdentityResourceClaimId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IdentityResourceId = table.Column<int>(type: "int", nullable: false)
+                    IdentityResourceClaimId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Type = table.Column<string>(type: "text", nullable: true),
+                    IdentityResourceId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -523,17 +526,17 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "IdentityResourceProperties",
                 columns: table => new
                 {
-                    IdentityResourcePropertyId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Key = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IdentityResourceId = table.Column<int>(type: "int", nullable: false)
+                    IdentityResourcePropertyId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Key = table.Column<string>(type: "text", nullable: true),
+                    Value = table.Column<string>(type: "text", nullable: true),
+                    IdentityResourceId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_IdentityResourceProperties", x => x.IdentityResourcePropertyId);
                     table.ForeignKey(
-                        name: "FK_IdentityResourceProperties_IdentityResources_IdentityResourceId",
+                        name: "FK_IdentityResourceProperties_IdentityResources_IdentityResour~",
                         column: x => x.IdentityResourceId,
                         principalTable: "IdentityResources",
                         principalColumn: "IdentityResourceId",
@@ -544,10 +547,10 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 name: "UserClaims",
                 columns: table => new
                 {
-                    UserClaimId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    UserClaimId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Type = table.Column<string>(type: "text", nullable: true),
+                    Value = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -565,9 +568,9 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 columns: new[] { "ApiResourceId", "AllowedAccessTokenSigningAlgorithms", "Created", "Description", "DisplayName", "Enabled", "LastAccessed", "Name", "NonEditable", "ShowInDiscoveryDocument", "Updated" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2022, 3, 13, 14, 53, 39, 161, DateTimeKind.Local).AddTicks(120), "Open ID", "Open ID", true, null, "openid", false, true, null },
-                    { 2, null, new DateTime(2022, 3, 13, 14, 53, 39, 161, DateTimeKind.Local).AddTicks(129), "Apollo's Library Website", "Apollo's Library Website", true, null, "apolloslibrarywebsite", false, true, null },
-                    { 3, null, new DateTime(2022, 3, 13, 14, 53, 39, 161, DateTimeKind.Local).AddTicks(132), "API in the IDP app to manage users", "User API", true, null, "IdentityServerApi", false, true, null }
+                    { 1, null, new NodaTime.LocalDateTime(2022, 7, 6, 22, 7, 22).PlusNanoseconds(932717700L), "Open ID", "Open ID", true, null, "openid", false, true, null },
+                    { 2, null, new NodaTime.LocalDateTime(2022, 7, 6, 22, 7, 22).PlusNanoseconds(932718400L), "Apollo's Library Website", "Apollo's Library Website", true, null, "apolloslibrarywebsite", false, true, null },
+                    { 3, null, new NodaTime.LocalDateTime(2022, 7, 6, 22, 7, 22).PlusNanoseconds(932718700L), "API in the IDP app to manage users", "User API", true, null, "IdentityServerApi", false, true, null }
                 });
 
             migrationBuilder.InsertData(
@@ -582,25 +585,25 @@ namespace ApollosLibrary.IDP.Domain.Migrations
             migrationBuilder.InsertData(
                 table: "Clients",
                 columns: new[] { "ClientId", "AbsoluteRefreshTokenLifetime", "AccessTokenLifetime", "AccessTokenType", "AllowAccessTokensViaBrowser", "AllowOfflineAccess", "AllowPlainTextPkce", "AllowRememberConsent", "AllowedIdentityTokenSigningAlgorithms", "AlwaysIncludeUserClaimsInIdToken", "AlwaysSendClientClaims", "AuthorizationCodeLifetime", "BackChannelLogoutSessionRequired", "BackChannelLogoutUri", "ClientClaimsPrefix", "ClientIdentifier", "ClientName", "ClientUri", "ConsentLifetime", "Created", "Description", "DeviceCodeLifetime", "EnableLocalLogin", "Enabled", "FrontChannelLogoutSessionRequired", "FrontChannelLogoutUri", "IdentityTokenLifetime", "IncludeJwtId", "LastAccessed", "LogoUri", "NonEditable", "PairWiseSubjectSalt", "ProtocolType", "RefreshTokenExpiration", "RefreshTokenUsage", "RequireClientSecret", "RequireConsent", "RequirePkce", "RequireRequestObject", "SlidingRefreshTokenLifetime", "UpdateAccessTokenClaimsOnRefresh", "Updated", "UserCodeType", "UserSsoLifetime" },
-                values: new object[] { 1, 6000, 6000, 0, true, true, false, false, null, true, true, 6000, true, null, null, "apolloslibrarywebapp", "Apollo's Library Web App", null, null, new DateTime(2022, 3, 13, 14, 53, 39, 161, DateTimeKind.Local).AddTicks(186), "Apollo's Library Web App", 6000, true, true, true, null, 6000, true, null, null, false, null, "oidc", "Sliding", "ReUse", false, false, true, false, 6000, true, null, null, null });
+                values: new object[] { 1, 6000, 6000, 0, true, true, false, false, null, true, true, 6000, true, null, null, "apolloslibrarywebapp", "Apollo's Library Web App", null, null, new NodaTime.LocalDateTime(2022, 7, 6, 22, 7, 22).PlusNanoseconds(932723800L), "Apollo's Library Web App", 6000, true, true, true, null, 6000, true, null, null, false, null, "oidc", "Sliding", "ReUse", false, false, true, false, 6000, true, null, null, null });
 
             migrationBuilder.InsertData(
                 table: "IdentityResources",
                 columns: new[] { "IdentityResourceId", "Created", "Description", "DisplayName", "Emphasize", "Enabled", "Name", "NonEditable", "Required", "ShowInDiscoveryDocument", "Updated" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 3, 13, 14, 53, 39, 161, DateTimeKind.Local).AddTicks(287), "openid", "Opend ID", false, true, "openid", false, true, true, null },
-                    { 2, new DateTime(2022, 3, 13, 14, 53, 39, 161, DateTimeKind.Local).AddTicks(294), "User claims", "User Claims", false, true, "claims", false, true, true, null },
-                    { 3, new DateTime(2022, 3, 13, 14, 53, 39, 161, DateTimeKind.Local).AddTicks(297), "User Profile", "User Profile", false, true, "profile", false, true, true, null },
-                    { 4, new DateTime(2022, 3, 13, 14, 53, 39, 161, DateTimeKind.Local).AddTicks(299), "Username", "Username", false, true, "username", false, true, true, null },
-                    { 5, new DateTime(2022, 3, 13, 14, 53, 39, 161, DateTimeKind.Local).AddTicks(337), "User Role", "User Role", false, true, "role", false, true, true, null },
-                    { 6, new DateTime(2022, 3, 13, 14, 53, 39, 161, DateTimeKind.Local).AddTicks(341), "User Email", "User Email", false, true, "email", false, true, true, null }
+                    { 1, new NodaTime.LocalDateTime(2022, 7, 6, 22, 7, 22).PlusNanoseconds(932743300L), "openid", "Opend ID", false, true, "openid", false, true, true, null },
+                    { 2, new NodaTime.LocalDateTime(2022, 7, 6, 22, 7, 22).PlusNanoseconds(932744100L), "User claims", "User Claims", false, true, "claims", false, true, true, null },
+                    { 3, new NodaTime.LocalDateTime(2022, 7, 6, 22, 7, 22).PlusNanoseconds(932744400L), "User Profile", "User Profile", false, true, "profile", false, true, true, null },
+                    { 4, new NodaTime.LocalDateTime(2022, 7, 6, 22, 7, 22).PlusNanoseconds(932744600L), "Username", "Username", false, true, "username", false, true, true, null },
+                    { 5, new NodaTime.LocalDateTime(2022, 7, 6, 22, 7, 22).PlusNanoseconds(932744900L), "User Role", "User Role", false, true, "role", false, true, true, null },
+                    { 6, new NodaTime.LocalDateTime(2022, 7, 6, 22, 7, 22).PlusNanoseconds(932745300L), "User Email", "User Email", false, true, "email", false, true, true, null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "UserId", "CreatedBy", "CreatedDate", "IsActive", "ModifiedBy", "ModifiedDate", "Password", "SecurityCode", "SecurityCodeExpirationDate", "Subject", "Username" },
-                values: new object[] { new Guid("2cd58a94-03c0-486b-9a64-95ecb2bb4666"), new Guid("2cd58a94-03c0-486b-9a64-95ecb2bb4666"), new DateTime(2022, 3, 13, 14, 53, 39, 160, DateTimeKind.Local).AddTicks(9881), true, null, null, "AQAAAAEAACcQAAAAECY64tCZ5CSbcXzOp4NE6XAr1TB9wQ1zgMv6Sa49QGTmEftnFXzPMsBH+NB1cu5brw==", null, null, "eec62170-997c-48ab-b56c-5705f4c7567a", "radulfr" });
+                columns: new[] { "UserId", "CreatedBy", "CreatedDate", "IsActive", "IsBanned", "ModifiedBy", "ModifiedDate", "Password", "SecurityCode", "SecurityCodeExpirationDate", "Subject", "Username" },
+                values: new object[] { new Guid("e7f12974-73dd-48d6-aa79-95fe1ded101e"), new Guid("e7f12974-73dd-48d6-aa79-95fe1ded101e"), new NodaTime.LocalDateTime(2022, 7, 6, 22, 7, 22).PlusNanoseconds(932695400L), true, false, null, null, "AQAAAAEAACcQAAAAECY64tCZ5CSbcXzOp4NE6XAr1TB9wQ1zgMv6Sa49QGTmEftnFXzPMsBH+NB1cu5brw==", null, null, "a3808d45-d88b-4100-bd40-4c75bcb61d00", "radulfr" });
 
             migrationBuilder.InsertData(
                 table: "ApiResourceClaims",
@@ -608,7 +611,8 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 values: new object[,]
                 {
                     { 1, 1, "role" },
-                    { 2, 1, "username" }
+                    { 2, 1, "username" },
+                    { 3, 1, "email" }
                 });
 
             migrationBuilder.InsertData(
@@ -650,17 +654,16 @@ namespace ApollosLibrary.IDP.Domain.Migrations
             migrationBuilder.InsertData(
                 table: "ClientSecrets",
                 columns: new[] { "ClientSecretId", "ClientId", "Created", "Description", "Expiration", "Type", "Value" },
-                values: new object[] { 1, 1, new DateTime(2022, 3, 13, 14, 53, 39, 161, DateTimeKind.Local).AddTicks(261), "apolloslibrarywebsite", null, "SharedSecret", "979eb386dc9a387d614b72902e44f5cb295636d71f829d2afccff401eb794bd6" });
+                values: new object[] { 1, 1, new NodaTime.LocalDateTime(2022, 7, 6, 22, 7, 22).PlusNanoseconds(932737100L), "apolloslibrarywebsite", null, "SharedSecret", "979eb386dc9a387d614b72902e44f5cb295636d71f829d2afccff401eb794bd6" });
 
             migrationBuilder.InsertData(
                 table: "UserClaims",
                 columns: new[] { "UserClaimId", "Type", "UserId", "Value" },
                 values: new object[,]
                 {
-                    { new Guid("2c916445-93aa-4e37-8607-07b02736f719"), "role", new Guid("2cd58a94-03c0-486b-9a64-95ecb2bb4666"), "administrator" },
-                    { new Guid("3c48d7df-8899-45a4-a651-489449b55fa6"), "emailaddress", new Guid("2cd58a94-03c0-486b-9a64-95ecb2bb4666"), "wados.russell70@gmail.com" },
-                    { new Guid("72531613-e5e6-4090-bb60-d231664ff0f0"), "role", new Guid("2cd58a94-03c0-486b-9a64-95ecb2bb4666"), "freeaccount" },
-                    { new Guid("d66bb188-3795-4693-bae0-3a5f1c214d39"), "role", new Guid("2cd58a94-03c0-486b-9a64-95ecb2bb4666"), "moderator" }
+                    { new Guid("1fec9ba0-aa2c-478f-89cf-4f792cd28901"), "role", new Guid("e7f12974-73dd-48d6-aa79-95fe1ded101e"), "moderator" },
+                    { new Guid("3e548e7f-1f31-45b3-a92a-ee49e42ddae1"), "emailaddress", new Guid("e7f12974-73dd-48d6-aa79-95fe1ded101e"), "wados.russell70@gmail.com" },
+                    { new Guid("93908216-6759-47d4-9417-71f6523318da"), "role", new Guid("e7f12974-73dd-48d6-aa79-95fe1ded101e"), "administrator" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -3,64 +3,65 @@ using System;
 using ApollosLibrary.IDP.Domain.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using NodaTime;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace ApollosLibrary.IDP.Domain.Migrations
 {
     [DbContext(typeof(ApollosLibraryIDPContext))]
-    [Migration("20220702121516_AddedBanField")]
-    partial class AddedBanField
+    [Migration("20220706120723_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.3")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("ProductVersion", "6.0.6")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("ApollosLibrary.IDP.Domain.Model.ApiResource", b =>
                 {
                     b.Property<int>("ApiResourceId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ApiResourceId"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ApiResourceId"));
 
                     b.Property<string>("AllowedAccessTokenSigningAlgorithms")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<LocalDateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("DisplayName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("Enabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
-                    b.Property<DateTime?>("LastAccessed")
-                        .HasColumnType("datetime2");
+                    b.Property<LocalDateTime?>("LastAccessed")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("NonEditable")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("ShowInDiscoveryDocument")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("datetime2");
+                    b.Property<LocalDateTime?>("Updated")
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("ApiResourceId");
 
@@ -70,7 +71,7 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                         new
                         {
                             ApiResourceId = 1,
-                            Created = new DateTime(2022, 7, 2, 22, 15, 15, 779, DateTimeKind.Local).AddTicks(171),
+                            Created = new NodaTime.LocalDateTime(2022, 7, 6, 22, 7, 22).PlusNanoseconds(932717700L),
                             Description = "Open ID",
                             DisplayName = "Open ID",
                             Enabled = true,
@@ -81,7 +82,7 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                         new
                         {
                             ApiResourceId = 2,
-                            Created = new DateTime(2022, 7, 2, 22, 15, 15, 779, DateTimeKind.Local).AddTicks(178),
+                            Created = new NodaTime.LocalDateTime(2022, 7, 6, 22, 7, 22).PlusNanoseconds(932718400L),
                             Description = "Apollo's Library Website",
                             DisplayName = "Apollo's Library Website",
                             Enabled = true,
@@ -92,7 +93,7 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                         new
                         {
                             ApiResourceId = 3,
-                            Created = new DateTime(2022, 7, 2, 22, 15, 15, 779, DateTimeKind.Local).AddTicks(181),
+                            Created = new NodaTime.LocalDateTime(2022, 7, 6, 22, 7, 22).PlusNanoseconds(932718700L),
                             Description = "API in the IDP app to manage users",
                             DisplayName = "User API",
                             Enabled = true,
@@ -106,15 +107,15 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 {
                     b.Property<int>("ApiResourceClaimId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ApiResourceClaimId"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ApiResourceClaimId"));
 
                     b.Property<int>("ApiResourceId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("ApiResourceClaimId");
 
@@ -147,18 +148,18 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 {
                     b.Property<int>("ApiResourcePropertyId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ApiResourcePropertyId"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ApiResourcePropertyId"));
 
                     b.Property<int>("ApiResourceId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Key")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("ApiResourcePropertyId");
 
@@ -171,15 +172,15 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 {
                     b.Property<int>("ApiResourceScopeId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ApiResourceScopeId"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ApiResourceScopeId"));
 
                     b.Property<int>("ApiResourceId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Scope")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("ApiResourceScopeId");
 
@@ -192,27 +193,27 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 {
                     b.Property<int>("ApiResourceSecretId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ApiResourceSecretId"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ApiResourceSecretId"));
 
                     b.Property<int>("ApiResourceId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("Expiration")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("ApiResourceSecretId");
 
@@ -225,30 +226,30 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 {
                     b.Property<int>("ApiScopeId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ApiScopeId"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ApiScopeId"));
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("DisplayName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("Emphasize")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("Enabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("Required")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("ShowInDiscoveryDocument")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.HasKey("ApiScopeId");
 
@@ -283,15 +284,15 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 {
                     b.Property<int>("ApiScopeClaimId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ApiScopeClaimId"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ApiScopeClaimId"));
 
                     b.Property<int>("ScopeId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("ApiScopeClaimId");
 
@@ -304,18 +305,18 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 {
                     b.Property<int>("ApiScopePropertyId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ApiScopePropertyId"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ApiScopePropertyId"));
 
                     b.Property<string>("Key")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("ScopeId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("ApiScopePropertyId");
 
@@ -328,138 +329,138 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 {
                     b.Property<int>("ClientId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClientId"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ClientId"));
 
                     b.Property<int>("AbsoluteRefreshTokenLifetime")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("AccessTokenLifetime")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("AccessTokenType")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("AllowAccessTokensViaBrowser")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("AllowOfflineAccess")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("AllowPlainTextPkce")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("AllowRememberConsent")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("AllowedIdentityTokenSigningAlgorithms")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("AlwaysIncludeUserClaimsInIdToken")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("AlwaysSendClientClaims")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int>("AuthorizationCodeLifetime")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("BackChannelLogoutSessionRequired")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("BackChannelLogoutUri")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClientClaimsPrefix")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClientIdentifier")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClientName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClientUri")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int?>("ConsentLifetime")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<LocalDateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("DeviceCodeLifetime")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("EnableLocalLogin")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("Enabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("FrontChannelLogoutSessionRequired")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("FrontChannelLogoutUri")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("IdentityTokenLifetime")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IncludeJwtId")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
-                    b.Property<DateTime?>("LastAccessed")
-                        .HasColumnType("datetime2");
+                    b.Property<LocalDateTime?>("LastAccessed")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("LogoUri")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("NonEditable")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("PairWiseSubjectSalt")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ProtocolType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("RefreshTokenExpiration")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("RefreshTokenUsage")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("RequireClientSecret")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("RequireConsent")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("RequirePkce")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("RequireRequestObject")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int>("SlidingRefreshTokenLifetime")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("UpdateAccessTokenClaimsOnRefresh")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("datetime2");
+                    b.Property<LocalDateTime?>("Updated")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("UserCodeType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int?>("UserSsoLifetime")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("ClientId");
 
@@ -482,7 +483,7 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                             BackChannelLogoutSessionRequired = true,
                             ClientIdentifier = "apolloslibrarywebapp",
                             ClientName = "Apollo's Library Web App",
-                            Created = new DateTime(2022, 7, 2, 22, 15, 15, 779, DateTimeKind.Local).AddTicks(238),
+                            Created = new NodaTime.LocalDateTime(2022, 7, 6, 22, 7, 22).PlusNanoseconds(932723800L),
                             Description = "Apollo's Library Web App",
                             DeviceCodeLifetime = 6000,
                             EnableLocalLogin = true,
@@ -507,18 +508,18 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 {
                     b.Property<int>("ClientClaimId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClientClaimId"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ClientClaimId"));
 
                     b.Property<int>("ClientId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("ClientClaimId");
 
@@ -531,15 +532,15 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 {
                     b.Property<int>("ClientCorsOriginId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClientCorsOriginId"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ClientCorsOriginId"));
 
                     b.Property<int>("ClientId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Origin")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("ClientCorsOriginId");
 
@@ -560,15 +561,15 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 {
                     b.Property<int>("ClientGrantTypeId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClientGrantTypeId"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ClientGrantTypeId"));
 
                     b.Property<int>("ClientId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("GrantType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("ClientGrantTypeId");
 
@@ -607,15 +608,15 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 {
                     b.Property<int>("ClientIdPrestrictionId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClientIdPrestrictionId"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ClientIdPrestrictionId"));
 
                     b.Property<int>("ClientId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Provider")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("ClientIdPrestrictionId");
 
@@ -628,15 +629,15 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 {
                     b.Property<int>("ClientPostLogoutRedirectUriId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClientPostLogoutRedirectUriId"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ClientPostLogoutRedirectUriId"));
 
                     b.Property<int>("ClientId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("PostLogoutRedirectUri")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("ClientPostLogoutRedirectUriId");
 
@@ -649,18 +650,18 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 {
                     b.Property<int>("ClientPropertyId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClientPropertyId"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ClientPropertyId"));
 
                     b.Property<int>("ClientId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Key")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("ClientPropertyId");
 
@@ -673,15 +674,15 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 {
                     b.Property<int>("ClientRedirectUriId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClientRedirectUriId"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ClientRedirectUriId"));
 
                     b.Property<int>("ClientId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("RedirectUri")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("ClientRedirectUriId");
 
@@ -702,15 +703,15 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 {
                     b.Property<int>("ClientScopeId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClientScopeId"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ClientScopeId"));
 
                     b.Property<int>("ClientId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Scope")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("ClientScopeId");
 
@@ -773,27 +774,27 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 {
                     b.Property<int>("ClientSecretId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClientSecretId"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ClientSecretId"));
 
                     b.Property<int>("ClientId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<LocalDateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<DateTime?>("Expiration")
-                        .HasColumnType("datetime2");
+                    b.Property<LocalDateTime?>("Expiration")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("ClientSecretId");
 
@@ -806,7 +807,7 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                         {
                             ClientSecretId = 1,
                             ClientId = 1,
-                            Created = new DateTime(2022, 7, 2, 22, 15, 15, 779, DateTimeKind.Local).AddTicks(312),
+                            Created = new NodaTime.LocalDateTime(2022, 7, 6, 22, 7, 22).PlusNanoseconds(932737100L),
                             Description = "apolloslibrarywebsite",
                             Type = "SharedSecret",
                             Value = "979eb386dc9a387d614b72902e44f5cb295636d71f829d2afccff401eb794bd6"
@@ -816,31 +817,31 @@ namespace ApollosLibrary.IDP.Domain.Migrations
             modelBuilder.Entity("ApollosLibrary.IDP.Domain.Model.DeviceCode", b =>
                 {
                     b.Property<string>("DeviceCodeId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClientId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
+                    b.Property<LocalDateTime>("CreationTime")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Data")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<DateTime>("Expiration")
-                        .HasColumnType("datetime2");
+                    b.Property<LocalDateTime>("Expiration")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("SessionId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("SubjectId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("DeviceCodeId");
 
@@ -851,39 +852,39 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 {
                     b.Property<int>("IdentityResourceId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdentityResourceId"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdentityResourceId"));
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<LocalDateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("DisplayName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("Emphasize")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("Enabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("NonEditable")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("Required")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("ShowInDiscoveryDocument")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("datetime2");
+                    b.Property<LocalDateTime?>("Updated")
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("IdentityResourceId");
 
@@ -893,7 +894,7 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                         new
                         {
                             IdentityResourceId = 1,
-                            Created = new DateTime(2022, 7, 2, 22, 15, 15, 779, DateTimeKind.Local).AddTicks(344),
+                            Created = new NodaTime.LocalDateTime(2022, 7, 6, 22, 7, 22).PlusNanoseconds(932743300L),
                             Description = "openid",
                             DisplayName = "Opend ID",
                             Emphasize = false,
@@ -906,7 +907,7 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                         new
                         {
                             IdentityResourceId = 2,
-                            Created = new DateTime(2022, 7, 2, 22, 15, 15, 779, DateTimeKind.Local).AddTicks(349),
+                            Created = new NodaTime.LocalDateTime(2022, 7, 6, 22, 7, 22).PlusNanoseconds(932744100L),
                             Description = "User claims",
                             DisplayName = "User Claims",
                             Emphasize = false,
@@ -919,7 +920,7 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                         new
                         {
                             IdentityResourceId = 3,
-                            Created = new DateTime(2022, 7, 2, 22, 15, 15, 779, DateTimeKind.Local).AddTicks(351),
+                            Created = new NodaTime.LocalDateTime(2022, 7, 6, 22, 7, 22).PlusNanoseconds(932744400L),
                             Description = "User Profile",
                             DisplayName = "User Profile",
                             Emphasize = false,
@@ -932,7 +933,7 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                         new
                         {
                             IdentityResourceId = 4,
-                            Created = new DateTime(2022, 7, 2, 22, 15, 15, 779, DateTimeKind.Local).AddTicks(354),
+                            Created = new NodaTime.LocalDateTime(2022, 7, 6, 22, 7, 22).PlusNanoseconds(932744600L),
                             Description = "Username",
                             DisplayName = "Username",
                             Emphasize = false,
@@ -945,7 +946,7 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                         new
                         {
                             IdentityResourceId = 5,
-                            Created = new DateTime(2022, 7, 2, 22, 15, 15, 779, DateTimeKind.Local).AddTicks(356),
+                            Created = new NodaTime.LocalDateTime(2022, 7, 6, 22, 7, 22).PlusNanoseconds(932744900L),
                             Description = "User Role",
                             DisplayName = "User Role",
                             Emphasize = false,
@@ -958,7 +959,7 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                         new
                         {
                             IdentityResourceId = 6,
-                            Created = new DateTime(2022, 7, 2, 22, 15, 15, 779, DateTimeKind.Local).AddTicks(359),
+                            Created = new NodaTime.LocalDateTime(2022, 7, 6, 22, 7, 22).PlusNanoseconds(932745300L),
                             Description = "User Email",
                             DisplayName = "User Email",
                             Emphasize = false,
@@ -974,15 +975,15 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 {
                     b.Property<int>("IdentityResourceClaimId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdentityResourceClaimId"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdentityResourceClaimId"));
 
                     b.Property<int>("IdentityResourceId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("IdentityResourceClaimId");
 
@@ -995,18 +996,18 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 {
                     b.Property<int>("IdentityResourcePropertyId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdentityResourcePropertyId"), 1L, 1);
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdentityResourcePropertyId"));
 
                     b.Property<int>("IdentityResourceId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Key")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("IdentityResourcePropertyId");
 
@@ -1018,34 +1019,34 @@ namespace ApollosLibrary.IDP.Domain.Migrations
             modelBuilder.Entity("ApollosLibrary.IDP.Domain.Model.PersistedGrant", b =>
                 {
                     b.Property<string>("PersistedGrantKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClientId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<DateTime?>("ConsumedTime")
-                        .HasColumnType("datetime2");
+                    b.Property<LocalDateTime?>("ConsumedTime")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
+                    b.Property<LocalDateTime>("CreationTime")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Data")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<DateTime?>("Expiration")
-                        .HasColumnType("datetime2");
+                    b.Property<LocalDateTime?>("Expiration")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("SessionId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("SubjectId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("PersistedGrantKey");
 
@@ -1056,40 +1057,40 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 {
                     b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<LocalDateTime>("CreatedDate")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsBanned")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<Guid?>("ModifiedBy")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<LocalDateTime?>("ModifiedDate")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("SecurityCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<DateTime?>("SecurityCodeExpirationDate")
-                        .HasColumnType("datetime2");
+                    b.Property<LocalDateTime?>("SecurityCodeExpirationDate")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Subject")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("UserId");
 
@@ -1100,11 +1101,11 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                         {
                             UserId = new Guid("e7f12974-73dd-48d6-aa79-95fe1ded101e"),
                             CreatedBy = new Guid("e7f12974-73dd-48d6-aa79-95fe1ded101e"),
-                            CreatedDate = new DateTime(2022, 7, 2, 22, 15, 15, 778, DateTimeKind.Local).AddTicks(9874),
+                            CreatedDate = new NodaTime.LocalDateTime(2022, 7, 6, 22, 7, 22).PlusNanoseconds(932695400L),
                             IsActive = true,
                             IsBanned = false,
                             Password = "AQAAAAEAACcQAAAAECY64tCZ5CSbcXzOp4NE6XAr1TB9wQ1zgMv6Sa49QGTmEftnFXzPMsBH+NB1cu5brw==",
-                            Subject = "152807d6-710c-4380-9e26-014d06745953",
+                            Subject = "a3808d45-d88b-4100-bd40-4c75bcb61d00",
                             Username = "radulfr"
                         });
                 });
@@ -1113,16 +1114,16 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                 {
                     b.Property<Guid>("UserClaimId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("UserClaimId");
 
@@ -1133,21 +1134,21 @@ namespace ApollosLibrary.IDP.Domain.Migrations
                     b.HasData(
                         new
                         {
-                            UserClaimId = new Guid("9eb7b29f-f5a8-493d-bc0f-29c89ffa2be8"),
+                            UserClaimId = new Guid("93908216-6759-47d4-9417-71f6523318da"),
                             Type = "role",
                             UserId = new Guid("e7f12974-73dd-48d6-aa79-95fe1ded101e"),
                             Value = "administrator"
                         },
                         new
                         {
-                            UserClaimId = new Guid("711864cf-682d-45e4-ae36-db2f13a3fffc"),
+                            UserClaimId = new Guid("1fec9ba0-aa2c-478f-89cf-4f792cd28901"),
                             Type = "role",
                             UserId = new Guid("e7f12974-73dd-48d6-aa79-95fe1ded101e"),
                             Value = "moderator"
                         },
                         new
                         {
-                            UserClaimId = new Guid("e61173c3-4772-4fa6-900c-f3e7fce5a9f2"),
+                            UserClaimId = new Guid("3e548e7f-1f31-45b3-a92a-ee49e42ddae1"),
                             Type = "emailaddress",
                             UserId = new Guid("e7f12974-73dd-48d6-aa79-95fe1ded101e"),
                             Value = "wados.russell70@gmail.com"

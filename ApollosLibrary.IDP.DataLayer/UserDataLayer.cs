@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using ApollosLibrary.IDP.Domain.Model;
 using ApollosLibrary.IDP.DataLayer.Contracts;
+using NodaTime;
 
 namespace ApollosLibrary.IDP.DataLayer
 {
@@ -103,7 +104,7 @@ namespace ApollosLibrary.IDP.DataLayer
 
         public async Task<Domain.Model.User> GetUserBySecurityCode(string securityCode)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.SecurityCode == securityCode && u.SecurityCodeExpirationDate >= DateTime.Now);
+            return await _context.Users.FirstOrDefaultAsync(u => u.SecurityCode == securityCode && u.SecurityCodeExpirationDate >= LocalDateTime.FromDateTime(DateTime.Now));
         }
     }
 }

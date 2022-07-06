@@ -17,6 +17,7 @@ using ApollosLibrary.IDP.Domain.Model;
 using ApollosLibrary.IDP.Infrastructure.Interfaces;
 using ApollosLibrary.IDP.Application.User.Commands.UpdatePasswordCommand;
 using Microsoft.EntityFrameworkCore;
+using NodaTime;
 
 namespace ApollosLibrary.IDP.IntegrationTests
 {
@@ -33,7 +34,7 @@ namespace ApollosLibrary.IDP.IntegrationTests
             var services = fixture.ServiceCollection;
 
             var mockDateTimeService = new Mock<IDateTimeService>();
-            mockDateTimeService.Setup(d => d.Now).Returns(new DateTime(2021, 02, 07));
+            mockDateTimeService.Setup(d => d.Now).Returns(LocalDateTime.FromDateTime(new DateTime(2021, 02, 07)));
             _dateTime = mockDateTimeService.Object;
             services.AddSingleton(mockDateTimeService.Object);
 
@@ -64,7 +65,7 @@ namespace ApollosLibrary.IDP.IntegrationTests
             var user = new User()
             {
                 CreatedBy = userID,
-                CreatedDate = DateTime.Parse("2021-01-02"),
+                CreatedDate = LocalDateTime.FromDateTime(DateTime.Parse("2021-01-02")),
                 IsActive = true,
                 Subject = Guid.NewGuid().ToString(),
                 UserId = userID,
