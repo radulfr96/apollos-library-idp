@@ -16,6 +16,7 @@ using System.Net.Mail;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using NodaTime;
+using ApollosLibrary.IDP.Application.Interfaces;
 
 namespace ApollosLibrary.IDP.UserRegistration
 {
@@ -24,12 +25,18 @@ namespace ApollosLibrary.IDP.UserRegistration
         private readonly IUserService _userService;
         private readonly IConfiguration _config;
         private readonly IIdentityServerInteractionService _interactionService;
+        private readonly IEmailService _emailService;
 
-        public UserRegistrationController(IUserService userService, IIdentityServerInteractionService interactionService, IConfiguration config)
+        public UserRegistrationController(
+            IUserService userService
+            , IIdentityServerInteractionService interactionService
+            , IConfiguration config
+            , IEmailService emailService)
         {
             _config = config;
             _userService = userService;
             _interactionService = interactionService;
+            _emailService = emailService;
         }
 
         [HttpGet]
@@ -109,15 +116,7 @@ namespace ApollosLibrary.IDP.UserRegistration
             var link = Url.ActionLink("ActivateUser", "UserRegistration", new { securityCode = user.SecurityCode });
 
             string mailbody = $"Please click the following link to activate your account: <a href='/{link}'>{link}</a";
-            message.Subject = "My Library Password Reset";
-            message.Body = mailbody;
-            message.BodyEncoding = Encoding.UTF8;
-            message.IsBodyHtml = true;
-            SmtpClient client = new SmtpClient("127.0.0.1", 25); //smtp    
-            //client.EnableSsl = true;
-            client.UseDefaultCredentials = true;
-
-            client.Send(message);
+            await _emailService.SendEmail("noreply@apolloslibrary.com", model.Email, "My Library Password Reset", mailbody);
 
             return View("ActivationCodeSent");
         }

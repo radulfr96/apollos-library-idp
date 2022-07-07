@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ApollosLibrary.IDP.Infrastructure.Interfaces;
 using Microsoft.Extensions.Configuration;
+using ApollosLibrary.IDP.Application.Interfaces;
 
 namespace ApollosLibrary.IDP.PasswordReset
 {
@@ -16,9 +17,11 @@ namespace ApollosLibrary.IDP.PasswordReset
     {
         private readonly IUserService _userService;
         private readonly IConfiguration _config;
+        private readonly IEmailService _emailService;
 
-        public PasswordResetController(IUserService userService, IConfiguration config)
+        public PasswordResetController(IUserService userService, IConfiguration config, IEmailService emailService)
         {
+            _emailService = emailService;
             _userService = userService;
             _config = config;
         }
@@ -42,19 +45,8 @@ namespace ApollosLibrary.IDP.PasswordReset
             var securityCode = await _userService.InitiatePasswordResetRequest(model.Email);
 
             var link = $"{HttpContext.Request.Host.Host}{Url.Action("ResetPassword", "PasswordReset", new { securityCode })}";
-
-            MailMessage message = new MailMessage("noreply@apolloslibrary.com", model.Email);
-
             string mailbody = $"Please click the following link to reset your password: <a href='/{link}'>{link}</a";
-            message.Subject = "Apollo's Library Password Reset";
-            message.Body = mailbody;
-            message.BodyEncoding = Encoding.UTF8;
-            message.IsBodyHtml = true;
-            SmtpClient client = new SmtpClient("127.0.0.1", 25); //smtp    
-            //client.EnableSsl = true;
-            client.UseDefaultCredentials = true;
-            
-            client.Send(message);
+            await _emailService.SendEmail("noreply@apolloslibrary.com", model.Email, "Apollo's Library Password Reset", mailbody);
 
             return View("PasswordResetRequestSent");
         }

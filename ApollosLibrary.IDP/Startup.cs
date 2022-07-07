@@ -26,6 +26,8 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using IdentityServer4;
 using ApollosLibrary.IDP.Filters;
+using ApollosLibrary.IDP.Application.Interfaces;
+using ApollosLibrary.IDP.Infrastructure.Services;
 
 namespace ApollosLibrary.IDP
 {
@@ -52,6 +54,7 @@ namespace ApollosLibrary.IDP
 
             services.AddDbContext<ApollosLibraryIDPContext>(options => options.UseNpgsql(Configuration.GetSection("ConnectionString").Value, o => o.UseNodaTime()));
             services.AddScoped<DbContext, ApollosLibraryIDPContext>();
+            services.AddScoped<IEmailService, SendGridEmailService>();
             services.AddScoped<ApiExceptionFilterAttribute>();
             services.AddScoped<AdministratorFilterAttribute>();
 
