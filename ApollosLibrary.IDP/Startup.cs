@@ -51,6 +51,7 @@ namespace ApollosLibrary.IDP
             services.AddSingleton<IDateTimeService, DateTimeService>();
 
             services.AddDbContext<ApollosLibraryIDPContext>(options => options.UseNpgsql(Configuration.GetSection("ConnectionString").Value, o => o.UseNodaTime()));
+            services.AddScoped<DbContext, ApollosLibraryIDPContext>();
             services.AddScoped<ApiExceptionFilterAttribute>();
             services.AddScoped<AdministratorFilterAttribute>();
 
