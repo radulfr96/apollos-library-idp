@@ -55,6 +55,7 @@ namespace ApollosLibrary.IDP
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.CaptureStartupErrors(true);
                 });
     }
 }
