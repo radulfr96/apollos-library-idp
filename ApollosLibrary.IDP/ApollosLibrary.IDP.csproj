@@ -41,4 +41,10 @@
     <ProjectReference Include="..\ApollosLibrary.IDP.Infrastructure\ApollosLibrary.IDP.Infrastructure.csproj" />
     <ProjectReference Include="..\ApollosLibrary.IDP.UnitOfWork\ApollosLibrary.IDP.UnitOfWork.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="EmailTemplates\ActivationEmail.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
