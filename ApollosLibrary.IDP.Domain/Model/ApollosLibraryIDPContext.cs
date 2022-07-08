@@ -139,7 +139,7 @@ namespace ApollosLibrary.IDP.Domain.Model
                 new ApiResourceClaim()
                 {
                     ApiResourceClaimId = 3,
-                    Type = "email",
+                    Type = "emailaddress",
                     ApiResourceId = 1,
                 }
             });
@@ -395,7 +395,7 @@ namespace ApollosLibrary.IDP.Domain.Model
                     Emphasize = false,
                     Enabled = true,
                     IdentityResourceId = 6,
-                    Name = "email",
+                    Name = "emailaddress",
                     NonEditable = false,
                     Required = true,
                     ShowInDiscoveryDocument = true,
