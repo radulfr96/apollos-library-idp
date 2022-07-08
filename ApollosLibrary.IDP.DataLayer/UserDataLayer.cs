@@ -104,7 +104,9 @@ namespace ApollosLibrary.IDP.DataLayer
 
         public async Task<Domain.Model.User> GetUserBySecurityCode(string securityCode)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.SecurityCode == securityCode && u.SecurityCodeExpirationDate >= LocalDateTime.FromDateTime(DateTime.Now));
+            var currentDate = LocalDateTime.FromDateTime(DateTime.Now);
+
+            return await _context.Users.FirstOrDefaultAsync(u => u.SecurityCode == securityCode && u.SecurityCodeExpirationDate >= currentDate);
         }
     }
 }

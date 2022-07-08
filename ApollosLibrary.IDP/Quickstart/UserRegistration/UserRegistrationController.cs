@@ -112,11 +112,10 @@ namespace ApollosLibrary.IDP.UserRegistration
             await _userService.AddUser(user, model.Password);
 
             MailMessage message = new MailMessage("noreply@apolloslibrary.com", model.Email);
-
             var link = Url.ActionLink("ActivateUser", "UserRegistration", new { securityCode = user.SecurityCode });
-
-            string mailbody = $"Please click the following link to activate your account: <a href='/{link}'>{link}</a";
-            await _emailService.SendEmail("noreply@apolloslibrary.com", model.Email, "My Library Password Reset", mailbody);
+            var htmlText = System.IO.File.ReadAllText(@"./EmailTemplates/ActivationEmail.html");
+            htmlText = htmlText.Replace("{{Link}}", link);
+            await _emailService.SendEmail("noreply@apolloslibrary.com", model.Email, "My Library Password Reset", htmlText);
 
             return View("ActivationCodeSent");
         }
