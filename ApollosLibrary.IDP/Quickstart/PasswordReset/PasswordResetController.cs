@@ -43,10 +43,11 @@ namespace ApollosLibrary.IDP.PasswordReset
             }
 
             var securityCode = await _userService.InitiatePasswordResetRequest(model.Email);
-
+            MailMessage message = new MailMessage("noreply@apolloslibrary.com", model.Email);
             var link = $"{HttpContext.Request.Host.Host}{Url.Action("ResetPassword", "PasswordReset", new { securityCode })}";
-            string mailbody = $"Please click the following link to reset your password: <a href='/{link}'>{link}</a";
-            await _emailService.SendEmail("noreply@apolloslibrary.com", model.Email, "Apollo's Library Password Reset", mailbody);
+            var htmlText = System.IO.File.ReadAllText(@"./EmailTemplates/ResetPasswordEmail.html");
+            htmlText = htmlText.Replace("{{Link}}", link);
+            await _emailService.SendEmail("noreply@apolloslibrary.com", model.Email, "Apollo's Library Password Reset", htmlText);
 
             return View("PasswordResetRequestSent");
         }
