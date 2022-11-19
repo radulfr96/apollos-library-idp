@@ -18,8 +18,7 @@ namespace ApollosLibrary.IDP.Infrastructure.Services
         public SendGridEmailService(IConfiguration configuration)
         {
             _configuration = configuration;
-            var apiKey = _configuration.GetRequiredSection("SendGridKey").Value;
-            _client = new SendGridClient(apiKey);
+            _client = new SendGridClient(_configuration["sendgrid-key"]);
         }
 
         public async Task SendEmail(string from, string to, string subject, string htmlContent, string plainTextContent = null)

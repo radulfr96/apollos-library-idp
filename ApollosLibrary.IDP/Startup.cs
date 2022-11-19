@@ -28,6 +28,10 @@ using IdentityServer4;
 using ApollosLibrary.IDP.Filters;
 using ApollosLibrary.IDP.Application.Interfaces;
 using ApollosLibrary.IDP.Infrastructure.Services;
+using System.Security.Cryptography.X509Certificates;
+using System;
+using Azure.Identity;
+using Azure.Security.KeyVault.Certificates;
 
 namespace ApollosLibrary.IDP
 {
@@ -52,7 +56,7 @@ namespace ApollosLibrary.IDP
             services.AddMediatR(typeof(GetUserQuery).GetTypeInfo().Assembly);
             services.AddSingleton<IDateTimeService, DateTimeService>();
 
-            services.AddDbContext<ApollosLibraryIDPContext>(options => options.UseNpgsql(Configuration.GetSection("ConnectionString").Value, o => o.UseNodaTime()));
+            services.AddDbContext<ApollosLibraryIDPContext>(options => options.UseNpgsql(Configuration["db-idp"], o => o.UseNodaTime()));
             services.AddScoped<DbContext, ApollosLibraryIDPContext>();
             services.AddScoped<IEmailService, SendGridEmailService>();
             services.AddScoped<ApiExceptionFilterAttribute>();
@@ -79,14 +83,15 @@ namespace ApollosLibrary.IDP
 
             services.AddLocalApiAuthentication();
 
+            var client = new CertificateClient(new Uri(Configuration["KEY_VAULT"]), new DefaultAzureCredential());
+            X509Certificate2 certificate = client.DownloadCertificate("TokenCertificate");
+
             var builder = services.AddIdentityServer(options =>
             {
                 // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                 options.EmitStaticAudienceClaim = true;
-            });
-
-            // not recommended for production - you need to store your key material somewhere secure
-            builder.AddDeveloperSigningCredential();
+            })
+            .AddSigningCredential(certificate);
 
             builder
                 .AddResourceStore<ResourceStore>()
